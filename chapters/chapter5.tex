@@ -1,0 +1,31 @@
+\chapter{Conclusion and Discussion} 
+By actualizing the architectural design concepts of modularity, scalability and extensibility discussed in Chapter~\ref{cha:background_and_motivation}. We were able to create a platform that effectively accomplished these required objectives in a cost-effective manner. We have also realized that this design framework has created an extensible platform for numerous avenues of future work. There are opportunities to support various programming interfaces, porting \xten to more powerful hardware and support of additional sensor and actuator devices.
+
+\section{Achievements}
+The following are a list of the main objectives which were accomplished:
+\begin{itemize}
+\item Designed modular, distributed hardware framework with pluggable peripheral boards
+\item Engineered a model that can support almost 900 sensors and 900 actuators
+\item Created an extensible software framework that can support the addition of many types of sensors \& actuators
+\item Created a flexible system that allows easy interoperability with distinct hardware architectures
+\item Kept the cost low by using the Arduino as the main hardware component
+\item Successfully tested the framework with both digital and analog sensors and actuators for latency and scalability
+\end{itemize}
+
+\section{Limitations}
+The efficiency of the \xten architecture is limited by the speed of its peripheral bus, which in our case is \iic and the power of the processors that implement it.
+The limitation details are listed below:
+\begin{itemize}
+\item Communication between motherboard and daughterboard are limited by the speed on the \iic bus which is not only limited by its specification but the clock speed of the host processor.
+\item Our implementation was done on an 8-bit Arduino processor running at 16MHz with 8KB of SRAM. This inherently limited the kinds of tasks that could have been attempted.
+\item Other limitations include the \iic 112 device limit on the peripheral bus, and the limit of 16 sensors and actuators (8 each) per daughterboard.
+\end{itemize}
+
+We can therefore conclude that the \xten architecture provides a suitable platform that will enable efficient robotics development. It will accomplish this by providing a model that can scale to a large number of sensors and actuators. This was made possible by utilizing a distributed modular framework of daughterboards that can be attached whenever needed. We performed tests to measure the latency of I/O instructions between the peripheral devices and the motherboard. We found it to be in an acceptable range that was tolerable for most robotics applications within the scope of 8-bit microprocessors. This delay time would also see improvements if the processor and communication speeds were increased. The performance of the system is dependent upon the hardware that implements it.
+
+\section{Future Work}
+In order to facilitate processor intensive operations, the architecture would have to be ported to a more powerful hardware platform. At the time of writing, there was a recent release of an Arduino based on the 32-bit, 84Mhz Arm core processor with 96 KBytes of SRAM. There is also the possibility of porting the architecture over to the Raspberry Pi for an even more powerful motherboard.
+
+The code now has support for basic analogue and digital sensors. Future work could involve expanding the core offering for more advanced and popular sensors and actuators and the creation of an online library where a community could contribute libraries for their favorite sensors and actuators.
+
+Currently the only supported method to write program code is using the Arduino framework. We had begun work on a bytecode interpreter that would allow the \xten framework to read in bytecode from the LEGO Mindstorms' broad range of programming interfaces. Future work could see the completion of this interpreter that would provide a useful tool for roboticists with Mindstorms experience.

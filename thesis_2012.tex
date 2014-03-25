@@ -1,0 +1,110 @@
+\documentclass[a4paper, 12pt, oneside]{Thesis}
+%%\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,graphicx,setspace,url,verbatim,subfigure,listings} %breakurl
+%\usepackage[sort&compress]{natbib} 
+%\usepackage[parfill]{parskip}
+\usepackage[english]{babel}
+\usepackage[noibid, authordate,backend=biber,doi=true]{biblatex-chicago}  
+\addbibresource{thesis_2012.bib}
+\DefineBibliographyStrings{english}{%
+  bibliography = {REFERENCES},% replace "references" with "bibliography"  for `book`/`report`
+}
+
+%%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+% Include any extra LaTeX packages required
+%\usepackage[square, numbers, comma, sort&compress]{natbib}  % Use the "Natbib" style for the references in the Bibliography
+\usepackage{verbatim}  % Needed for the "comment" environment to make LaTeX comments
+%\usepackage{vector}  % Allows "\bvec{}" and "\buvec{}" for "blackboard" style bold vectors in maths 
+
+\usepackage{minted}
+\usepackage{fontspec}{
+\usepackage{multicol}
+\usepackage{float}
+\hypersetup{urlcolor=blue, colorlinks=true}  % Colours hyperlinks in blue, but this can be distracting if there are many links.
+
+%\usepackage[pdftex]{graphicx}
+
+\setlength{\parindent}{0in}
+\urlstyle{rm}
+\hypersetup{linkcolor=black, urlcolor=black, colorlinks=true, citecolor=black}
+\begin{document}
+
+%% ----------------------------------------------------------------
+\newcommand{\xten}{\texttt{X10ABOT} }
+\newcommand{\reg}{\textsuperscript{\textregistered}}
+\newcommand{\lego}{LEGO\reg }
+\newcommand{\iic}{I$^2$C }
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+%\renewcommand\listingscaption{Code Example}
+
+
+\pagestyle{fancy}
+\frontmatter
+
+\begin{titlepage}
+\singlespacing
+\begin{center}
+
+{\LARGE \uppercase{The X10ABOT Modular, Extensible, Robotics Platform}}
+
+
+\vfill
+
+\begin{center}
+A Thesis\\ 
+Submitted in Partial Fulfillment of the Requirement for the \\
+Degree of Master of Philosophy in Computer Science\\
+%in the\\
+%Department of Computing\\
+%Faculty of Pure and Applied Sciences\\
+\vfill
+of\\
+The University of the West Indies\\
+\end{center}
+\vfill
+by\\
+Rohan Anthony Smith\\
+2013\\
+\end{center}
+Department of Computing\\
+Faculty of Science and Technology\\
+Mona Campus
+%\begin{center}
+%Supervisor: Dr. Daniel Coore\\
+%August 15, 2012\\
+%\end{center}
+%\end{center}
+
+\end{titlepage}
+
+\input{./chapters/abstract}
+
+\doublespacing
+\raggedright
+\input{./chapters/acknowledgements}
+
+\input{./chapters/dedication}
+
+%\thispagestyle{empty}
+\tableofcontents
+\listoffigures
+\mainmatter
+\input{./chapters/chapter1} % \chapter{Introduction}
+\input{./chapters/chapter2} % \chapter{Background}
+\input{./chapters/chapter3} % \chapter{Design and Implementation}
+\input{./chapters/chapter4} % \chapter{Results and Discussion}
+\input{./chapters/chapter5} % \chapter{Conclusion}
+
+%\bibliographystyle{chicago}
+\newpage
+\singlespacing
+\addtotoc{References}
+%\bibliography{thesis_2012}
+
+\printbibliography
+
+%\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+\doublespacing
+\input{./chapters/chapter6} % \chapter*{Appendices}
+\end{document}
