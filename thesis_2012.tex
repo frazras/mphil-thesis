@@ -3,8 +3,15 @@
 \usepackage{amsmath,amsfonts,amssymb,graphicx,setspace,url,verbatim,subfigure,listings} %breakurl
 %\usepackage[sort&compress]{natbib} 
 %\usepackage[parfill]{parskip}
-\usepackage[english]{babel}
-\usepackage[noibid, authordate,backend=biber,doi=true]{biblatex-chicago}  
+
+%\usepackage[english]{babel}
+
+\usepackage[nopar]{lipsum} % for dummy text
+\usepackage[american]{babel}
+\usepackage[babel]{csquotes}
+\usepackage[notes,natbib,isbn=false,backend=biber]{biblatex-chicago} 
+
+%\usepackage[noibid, authordate,backend=biber,doi=true]{biblatex-chicago}  
 \addbibresource{thesis_2012.bib}
 \DefineBibliographyStrings{english}{%
   bibliography = {REFERENCES},% replace "references" with "bibliography"  for `book`/`report`
