@@ -2,7 +2,7 @@
 
 
 \section{Context}
-The \xten robotics platform is a general purpose robotics kit that was designed to be a low cost, modular, scalable and extensible option for developing custom robotics projects. The system's intended audience and applications ranges from simple primary school level robots to more complex creations used at university level robotics competitions and research programs. The \xten kit's focus was to improve upon current general robotics kit standards by providing:
+The \xten robotics platform is a general purpose robotics kit that was designed to be a low cost, modular, scalable and extensible option for developing custom robotics projects. The system's intended audience and applications range from simple primary school level robots to more complex creations used at university level robotics competitions and research programs. The \xten kit's focus was to improve upon current general robotics kit standards by providing:
 \begin{itemize}
 \item Support for potentially hundreds of sensors and actuators.
 \item A modular design with pluggable add-on peripheral boards.
@@ -23,7 +23,7 @@ Outlined in this thesis are the details of how we progressed from our conceptual
 The outcome of the use of these tools and strategies gave us a system that was able to easily control multiple sensors and actuators in a scalable and modular way while allowing for extensibility.
 The following code example will show how the \xten platform manages the requirements we have outlined:
 
-\begin{listing}[H]
+\begin{listing}
 		\footnotesize
 		\caption{Example of a single controller with a force sensor and a DC motor.} \label{code:simpl}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Simple Example}]{c}
@@ -54,7 +54,7 @@ if(force1.readAnalogue()){
 \end{listing}
 
 
-\begin{listing}[H]
+\begin{listing}
 		\footnotesize
 		\caption{Now we add: A pushbutton sensor to the motherboard (or daughterboard \#0). We also add an extra daughterboard with a light sensor, and a DC Motor} \label{code:simpl}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Complex addition to simple example}]{c}

@@ -25,7 +25,7 @@ This section also discusses the results drawn from the implementation of designs
 
 
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=1.0\columnwidth]{Figures/simple-example.pdf}
     \caption{The components of a simple singleboard \xten Example}
@@ -42,7 +42,7 @@ Code example~\ref{code:example} is a typical setup for a very simple mobile robo
 
 
 %\begin{multicols}{2}
-	\begin{listing}[H]
+	\begin{listing}
 		\footnotesize
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={\xten Sample code}]{c}
 
@@ -100,7 +100,7 @@ It should be noted that it was necessary to include the library for both the mot
   \end{center}
 \end{figure}
 
-\begin{listing}[H]
+\begin{listing}
 		\footnotesize
 		\caption{Example of modularity in action.} \label{code:modularity}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Modularity in Code}]{c}
@@ -151,7 +151,7 @@ All these features are an indication of a truly modular architecture. As previou
 \label{sec:extensibility_abstraction}
 We demonstrate the \xten architecture's ability to support new and varied types of sensors and actuators. This is accomplished with no knowledge of the low-level details of the hardware.
 In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The temperature value will be returned in fahrenheit units. This code was sourced from the Arduino Playground \parencite{therm} as a simple example to acquire thermistor temperature readings. We made a simple modification that allowed the same code to be applicable to the \xten architecture.
-\begin{listing}[H]
+\begin{listing}
 		\footnotesize
 		\caption{Example: A complete library for a thermistor temperature sensor.} \label{code:therm}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Thermistor Library}]{c}
@@ -176,7 +176,7 @@ The library in code example \ref{code:therm} above is an almost exact replica of
 This thermistor library can then be easily utilized by the user as follows:
 
 The code in code example~\ref{code:thermcode} presents a temperature monitoring system that watches the temperature that it receives from two thermistors. If the value read from the thermistors goes beyond particular thresholds for either of them, an alarm is triggered.
-\begin{listing}[H]
+\begin{listing}
 		\footnotesize
 		\caption{Example application of the thermistor temperature sensor library.} \label{code:thermcode}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Thermistor Example Application}]{c}
@@ -252,7 +252,7 @@ digitalOut & digitalIn & pwm & analogue \\\hline
 
 The latency for output operations was significantly less time than that of input operations. This was expected since there is no waiting period to request the value of the data from the port on the daughterboard for output operations.  
 
-\begin{table}[H]
+\begin{table}
     %\scriptsize {%
 	\centering
 	\caption{Table showing microcode latency in microseconds($\mu$s) on the off-board daughteroard over 20 consecutive executions.}
@@ -288,7 +288,7 @@ digitalOut & digitalIn & pwm & analogue\\\hline
 \end{table}
 
 We carried out an experiment to determine how the system performed when executing a barrage of instruction and obtained the results lsted in table X below. 
-\begin{table}[H]
+\begin{table}
     %\scriptsize {%
 	\centering
 	\caption{Table showing microcode latency in microseconds($\mu$s) on the off-board daughteroard for number of instructions executed(no.) and associated time it took to complete over 5050 consecutive executions of digitalOut.}

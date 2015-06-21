@@ -168,7 +168,7 @@ The library was designed not only to provide common robotics functionality to it
 	
 	The motherboard implements a number of functions that allow the libraries to utilize microcode instruction in the development of device libraries. These instructions are passed to the daugterboard were they are interpreted and executed. Code example ~\ref{code:micro} shows a few of the microcode instructions used in the \xten library and their related parameters.
 	
-	\begin{listing}[H]
+	\begin{listing}
 		\footnotesize
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Microcode Functions }]{c}
 	
@@ -212,7 +212,7 @@ The library was designed not only to provide common robotics functionality to it
 	\normalsize
 	
 	Code example~\ref{code:instr} shows how microcode instructions are used to compose a particular robotics instruction in the \xten architecture. Here the method named \textbf{``on''} is defined for the Actuator class. The \textbf{power} paramenter is passed as an argument to the function. For negative and positive values of \textbf{power}, separate actions are taken. the same microcode operations are executed but with different parameters.
-	\begin{listing}[H]
+	\begin{listing}
 		\footnotesize
 		\label{code:instr}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Robot Instructions}]{c}
@@ -247,7 +247,7 @@ void Actuator::on(byte power){
 	In a review of popular robotics middleware, Kramer \parencite{Kramer2006} defines cites some major advantages which are applicable to the \xten architecture. He states that it aids in software modularity, which is an intentional design objective. The middleware allows for pluggable libraries at the motherboard level which are ignorant of the actual hardware implementations. This accomplishes the platform independence, and portability that Kramer found to be a common attribute of most robotics middleware.
 	
 	The aspect of the \xten architecture that transports the microcode from the libraries of the motherboard to the interpreter of the daughterboard is considered to be our middleware. Each microcode instruction formats the byte string as described in Table ~\ref{tab:mc-structure}. The microcode then performs one or more of a series of dispatch and request events between the motherboard and the daughterboard. The daughterboard also initiates data transfers as well for certain special cases. All these operations are managed by the middleware. 
-\begin{listing}[H]
+\begin{listing}
 \footnotesize
 \label{code:instr}
 {\fontsize{8}{6}\selectfont
