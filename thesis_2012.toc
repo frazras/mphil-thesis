@@ -28,64 +28,62 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.3}Extensibility}{15}{subsection.17}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.4}Economics}{17}{subsection.18}
+\contentsline {subsection}{\numberline {2.1.4}Economics}{16}{subsection.18}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}The \texttt {X10ABOT} Architecture, Design and Implementation}{19}{chapter.19}
+\contentsline {chapter}{\numberline {3}The \texttt {X10ABOT} Architecture, Design and Implementation}{18}{chapter.19}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}The Architecture}{20}{section.27}
+\contentsline {section}{\numberline {3.1}The Architecture}{19}{section.27}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.1}The Hardware Architecture}{20}{subsection.29}
+\contentsline {subsection}{\numberline {3.1.1}The Hardware Architecture}{19}{subsection.29}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1.1}The Motherboard}{21}{subsubsection.30}
+\contentsline {subsubsection}{\numberline {3.1.1.1}The Motherboard}{20}{subsubsection.30}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1.2}The Peripheral Bus}{22}{subsubsection.31}
+\contentsline {subsubsection}{\numberline {3.1.1.2}The Peripheral Bus}{21}{subsubsection.31}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1.3}The Daughterboard}{24}{subsubsection.33}
+\contentsline {subsubsection}{\numberline {3.1.1.3}The Daughterboard}{23}{subsubsection.33}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1.4}Internal Daughterboard}{25}{subsubsection.34}
+\contentsline {subsubsection}{\numberline {3.1.1.4}Internal Daughterboard}{24}{subsubsection.34}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1.5}Sensor \& Actuator Ports}{26}{subsubsection.36}
+\contentsline {subsubsection}{\numberline {3.1.1.5}Sensor \& Actuator Ports}{24}{subsubsection.36}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.2}The Software Architecture}{28}{subsection.38}
+\contentsline {subsection}{\numberline {3.1.2}The Software Architecture}{27}{subsection.38}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.1}The Motherboard Library}{28}{subsubsection.39}
+\contentsline {subsubsection}{\numberline {3.1.2.1}The Motherboard Library}{27}{subsubsection.39}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.2}Application Software}{29}{subsubsection.41}
+\contentsline {subsubsection}{\numberline {3.1.2.2}Application Software}{28}{subsubsection.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.3}The Daughterboard Firmware}{30}{subsubsection.42}
+\contentsline {subsubsection}{\numberline {3.1.2.3}The Daughterboard Firmware}{29}{subsubsection.42}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.4}Middleware}{33}{subsubsection.47}
+\contentsline {subsubsection}{\numberline {3.1.2.4}Middleware}{32}{subsubsection.47}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.5}Extending the Library}{35}{subsubsection.49}
+\contentsline {subsubsection}{\numberline {3.1.2.5}Extending the Library}{34}{subsubsection.49}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.6}Multitasking}{36}{subsubsection.50}
+\contentsline {subsubsection}{\numberline {3.1.2.6}Multitasking}{35}{subsubsection.50}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2.7}The X10ABOT LEGO VM}{36}{subsubsection.51}
+\contentsline {subsubsection}{\numberline {3.1.2.7}The X10ABOT LEGO VM}{35}{subsubsection.51}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}The Arduino Implementation}{37}{section.52}
+\contentsline {section}{\numberline {3.2}The Arduino Implementation}{35}{section.52}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Results}{39}{chapter.53}
+\contentsline {chapter}{\numberline {4}Results}{37}{chapter.53}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Results from Calibration of Sensors}{40}{section.54}
+\contentsline {section}{\numberline {4.1}Modularity}{39}{section.56}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Modularity}{42}{section.57}
+\contentsline {section}{\numberline {4.2}Extensibility and Abstraction}{40}{section.59}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Extensibility and Abstraction}{43}{section.60}
+\contentsline {section}{\numberline {4.3}Scalability}{44}{section.62}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Scalability}{44}{section.63}
+\contentsline {section}{\numberline {4.4}Discussion}{46}{section.66}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.5}Economy}{45}{section.67}
+\contentsline {chapter}{\numberline {5}Conclusion and Discussion}{50}{chapter.67}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusion and Discussion}{51}{chapter.68}
+\contentsline {section}{\numberline {5.1}Achievements}{50}{section.68}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Achievements}{51}{section.69}
+\contentsline {section}{\numberline {5.2}Limitations}{51}{section.69}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Limitations}{52}{section.70}
+\contentsline {section}{\numberline {5.3}Future Work}{52}{section.70}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Future Work}{53}{section.71}
+\contentsline {chapter}{References}{53}{dummy.71}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{References}{54}{dummy.72}
+\contentsline {chapter}{Appendix I - Model Equations}{54}{dummy.74}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendix I - Model Equations}{56}{dummy.75}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendix IV - Apparatus}{56}{dummy.76}
+\contentsline {chapter}{Appendix IV - Apparatus}{54}{dummy.75}
