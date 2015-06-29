@@ -18,7 +18,7 @@ This chapter presents evidence showing how the \xten architecture achieves its o
 
  We demonstrate the framework in action by showing excerpts of sample programs for a simple mobile robot with a number of sensors and actuators distributed across one or more daughterboards. These examples demonstrated the how modularity, scalability and extensibility are expressed through code and hardware configuration.
  
-All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern mirocontroller.
+All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern microcontroller.
 
 Listing~\textbf{\ref{code:example}} is a typical code setup for a very simple mobile robot illustrated in Figure \textbf{\ref{fig:singleboard}}. All the sensors and actuators were placed on one board; for this particular implementation, we utilised the \textbf{internal} daughterboard which is hosted on the same board as the motherboard. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor.
 
@@ -131,7 +131,7 @@ if (lightSensor.readAnalog()>700)
 	\end{minted}
 		
 \end{listing}
-In the code example at Listing \ref{code:modularity}, even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
+In the code example at Listing \textbf{\ref{code:modularity}}, even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, that did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
 All these features are an indication of a truly modular architecture. As previously defined, we included an entire subsystem without modifying the existing components. The modules can be removed just as easy as they were installed. The level of expertise, with regard to specialised knowledge required to modify this system is also relatively minimal when compared to a generic prototyping platform like the Arduino due to the abstraction in its design.
 
 
@@ -139,7 +139,7 @@ All these features are an indication of a truly modular architecture. As previou
 \section{Extensibility and Abstraction} % (fold)
 \label{sec:extensibility_abstraction}
 We demonstrate the \xten architecture's ability to support new and varied types of sensors and actuators. This is accomplished by creating a subclass to either of the existing Sensor or Actuator classes. These parent classes support all the generic operations on all the available sensor and actuator ports. By creating a subclass, all the parent class properties and functions will be inherited. Devices with unique configurations can be supported by utilising the same abstracted daughterboard access available to the parent classes requiring no knowledge of the low-level details of the hardware.
-In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both celsius and fahrenheit units. This code was sourced from the Arduino Playground \parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
+In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both celsius and fahrenheit units. This code was sourced from the Arduino Playground~\parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
 \begin{listing}
 		\footnotesize
 		\caption{Example: A complete library for a thermistor temperature sensor.} \label{code:therm}
@@ -178,11 +178,11 @@ class Thermistor: public Sensor
 		
 \end{listing}
 
-The conversion component of the library in Listing \ref{code:therm} is an almost exact replica of the fragment of code extracted from the Arduino library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analogue pin to read the raw data value acquired from the sensor. The \xten framework possesses special functions that access hardware components. For this particular case, the \textbf{analog(\_db,\_port)} function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract the analog pin on the sensor port so it becomes hardware independent. The analogue pin belongs on a daughterboard \textbf{\_db} on a particular sensor port \textbf{\_port}. The raw analogue value is then returned to the calling function where it is further processed.
+The conversion instructions of the \xten library in Listing \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analogue pin to read the raw data value acquired from the sensor. The \xten framework possesses special functions that access hardware components, we refer to them as microcode. These functions are at the the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analogue pin. The raw analogue value is then returned to the calling function where it is further processed.
 
-This thermistor library can then be easily utilised by the user as follows:
+This thermistor library can then be easily utilised by the user as follows (See Listing \ref{code:thermcode}):
 
-The code in Listing~\ref{code:thermcode} presents a temperature monitoring system that watches the temperature that it receives from two thermistors. If the value read from the thermistors goes beyond particular thresholds for either of them, an alarm is triggered.
+The code in Listing~\textbf{\ref{code:thermcode}} presents a temperature monitoring system that watches the temperature that it receives from two thermistors. If the value read from the thermistors goes beyond particular thresholds for either of them, an alarm is triggered.
 \begin{listing}
 		\footnotesize
 		\caption{Example application of the thermistor temperature sensor library.} \label{code:thermcode}
@@ -221,183 +221,114 @@ The library for a thermistor was included and it became very straightforward to 
 \label{sec:scalability}
 
 % section scalability (end)
-Based on the results gathered from testing for modularity, an inherent property for scalability can be observed. The method of modular addition lends itself to be scalable to tens of modules as defined by the specifications of the peripheral bus protocol. Scalability is not only measured by how many devices can be connected to the system, but we must take into consideration the performace of the system when all these devices are operational. We therefore need to benchmark the performance of the architecture implemented on the Arduino platform. This is necessary to evaluate what type of applications will be suitable for executions based on the speed at which instructions are excuted. This can determine how the system will perform when under duress from multiple hardware devices simultaneously executing instructions and requesting attention. These statistics can then be evaluated to deduce the architecture's suitability for a particular project and at what point would it become unusable. When operating with daughterboards acrooss the peripheral bus, the \xten architecture's major limiting factor becomes the speed of data transfer. The default speed of the peripheral bus when using the Arduino plaftorm is 100Kb/s, this can be further configured to go as high as 400Kb/s. For our application on the Arduino we had best result when performing at approximately 300Kb/s. We performed a number of tests to determine the latency of each type of basic instruction to see how they would affect the performance of the entire system. All tests below were carried out on the Arduino Mega, using the Atmel \texttrademark ATMega1280 microcontroller.
+Based on the results gathered from testing for modularity, an inherent property for scalability can be observed. The method of modular addition lends itself to be scalable to tens of modules as defined by the specifications of the \iic peripheral bus protocol. Scalability is not only measured by how many devices can be connected to the system, but we must take into consideration the performance of the system when all these devices are operational. To investigate this, we benchmarked the performance of the architecture that we implemented on the Arduino platform.  When operating with daughterboards across the peripheral bus, the \xten architecture's major limiting factor becomes the speed of data transfer. The default speed of the \iic peripheral bus when using the Arduino platform is 100Kb/s, this can be further configured to go as high as 400Kb/s. For our application on the Arduino we had best result when performing at approximately 260Kb/s. We performed a number of tests to determine the latency of each type of basic instruction (microcode) to see how they would affect the performance of the entire system. All tests below were carried out on the Arduino Mega, using the Atmel \texttrademark ATMega1280 microcontroller.
 
-We carried out a few timing tests to evaluate the performance of the \xten framework on the Arduino platform. The tests were done using one motherboard and three daughterboards. The typical robotics project may never require as many daughter boards since one Arduino Mega may support up to eight sensor ports and six actuator ports. The smaller Arduino Uno can support up to three sensor ports and two actuator ports. Any combination of one or more of these Arduino boards can be used to implement the \xten architecture.
-We did timing tests to measure the latency between the command request and the response. We also ran tests to see if there was any measurable difference when the peripheral bus is congested with a rapid succession of events for all the three daughterboards.
+We carried out instruction execution latency tests to evaluate the performance of the \xten framework on the Arduino platform. We performed three sets of test comparing the speed of execution on:
+\begin{itemize}
+\item  An Arduino without the \xten framework.
+\item The \xten framework with a single daughterboard on the peripheral bus
+\item The \xten framework with no external daughterboards (internal daughterboard used instead).
+\end{itemize}
 
-The sample below displays the result of our timing experiment, the timing utility on the Arduino has a maximum resolution of 4 micro second intervals.
-%Table \ref{table:onboard} presents 
+The tests were carried out by invoking and storing the value of Arduino\'s \textbf{micros()} function which returns the number of microseconds since the program started. The times before and after function executions were recorded and their difference taken. The timing utility on the Arduino has a maximum resolution of 4 micro second intervals therefore the readings were not precise. We implemented the tests in a continuous loop and recorded a sample of 20 consecutive duration time values for each tested function. We did further computations to find the mean and the standard deviation (Figure~\ref{eq:sd}) of the sample set of these values.
 
+$$
+s = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+$$
+\captionof{figure}{The Sample Standard Deviation equation}\label{eq:sd}
 
-The Sample Standard Deviation $$s = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}$$
+\newpage
+\textbf{The data below display the result of our timing experiment: }
 
-Direct Arduino Board readings
-
-The Sample digitalOut: %[12, 12, 16, 16, 12, 12, 12, 16, 16, 12, 12, 16, 16, 12, 12, 12, 16, 16, 12, 12]
-average = 13.6
-s = 2.01
-
-The Sample digitalIn: %[20, 16, 16, 16, 16, 12, 16, 16, 12, 16, 16, 12, 16, 16, 12, 16, 16, 20, 16, 16]
-average = 15.6
-s = 2.21
-
-The Sample pwm: %[12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 16, 12, 12]
-average = 12.2
-s = 0.89
-
-The Sample analogue:%[112, 120, 116, 116, 116, 124, 112, 112, 112, 120, 116, 116, 116, 116, 112, 112, 112, 120, 116, 116]
-average = 115.6
-s = 3.41
-
-Onboard readings
-
-The Sample digitalOut:% [40, 40, 36, 40, 40, 40, 40, 40, 36, 40, 40, 40, 40, 40, 36, 40, 40, 40, 40, 40]
-average = 39.4
-s = 2.15
-
-The Sample digitalIn:% [84, 88, 84, 84, 84, 84, 84, 80, 84, 80, 88, 84, 84, 84, 80, 84, 84, 80, 84]
-average = 83.58
-s = 2.27
-
-The Sample pwm:% [60, 56, 56, 56, 60, 60, 56, 56, 60, 60, 56, 56, 56, 60, 60, 56, 56, 60, 60, 56]
-average = 57.8
-s = 4.17
-
-The Sample analogue:% [212, 216, 212, 216, 212, 212, 212, 216, 216, 216, 216, 216, 216, 216, 220, 216, 216, 224, 216215.58]
-average = 215.58
-s = 2.95
-
-Offboard readings
-
-The Sample digitalOut:% [260, 268, 260, 260, 260, 260, 260, 260, 268, 260, 264, 260, 260, 260, 260, 268, 260, 260, 260, 260]
-average = 261.4
-s = 2.98
-
-The Sample digitalIn:% [556, 556, 556, 552, 556, 552, 560, 556, 552, 552, 556, 552, 556, 560, 556, 552, 552, 556, 552, 556]
-average = 554.8
-s = 2.63
-
-The Sample pwm :%[320, 316, 320, 320, 320, 320, 320, 316, 320, 324, 316, 320, 320, 316, 320, 316, 320, 316, 320, 320]
-average = 319
-s = 2.20
-
-The Sample analogue:% [668, 656, 668, 656, 656, 660, 656, 664, 656, 656, 656, 656, 652, 656, 656, 656, 656, 652, 672, 656]
-average = 658.2
-s = 5.43
 \begin{table}[h!]
-    %\scriptsize {
-	%\centering
-	\caption{Table showing microcode latency in microseconds($\mu$s) on the on-board daughterboard for over 20 consecutive executions.}\label{table:onboard}
-	\begin{tabular}{|l|l|l|l|}
+	\caption{Table showing instruction latency in microseconds($\mu$s) for a regular Arduino using a sample of 20 consecutive executions.}\label{table:arduinoboard}
+	\begin{tabular}{|l|l|l|l|l|}
 	\toprule
- \multicolumn{4}{c}{\textbf{ONBOARD daughterboard}} \\\hline
+ \multicolumn{5}{c}{\textbf{Direct Arduino Board readings}} \\\hline
 
-digitalOut & digitalIn & pwm & analogue \\\hline
-40 & 50084 & 60 & 50212\\\hline
-40 & 50088 & 60 & 50216 \\\hline
-40 & 50084 & 60 & 50212 \\\hline
-36 & 50084 & 60 & 50216 \\\hline
-40 & 50084 & 56 & 50212 \\\hline
-40 & 50084 & 60 & 50212 \\\hline
-40 & 50084 & 60 & 50212 \\\hline
-40 & 50080 & 60 & 50216 \\\hline
-40 & 50084 & 60 & 50216 \\\hline
-48 & 50080 & 56 & 50216 \\\hline
-40 & 50088 & 56 & 50216 \\\hline
-40 & 50084 & 56 & 50216 \\\hline
-40 & 50084 & 60 & 50216 \\\hline
-36 & 50084 & 60 & 50216 \\\hline
-40 & 50080 & 60 & 50220 \\\hline
-40 & 50084 & 64 & 50216 \\\hline
-40 & 50084 & 56 & 50216 \\\hline
-40 & 50080 & 60 & 50224 \\\hline
-40 & 50084 & 56 & 50216 \\\hline
-\multicolumn{4}{c}{Average Times} \\\hline
-40.00 & 50083.58 & 58.95 & 50215.58
+& digitalOut & digitalIn & pwm & analogue \\\hline
+Mean:                   & 13.6 & 15.6 & 12.2 & 115.6\\\hline
+Standard Deviation:     & 2.01 & 2.21  & 0.89  & 3.41 \\\hline
+3 Stnd. Devs. Lower Limit& 7.57 & 8.97  & 9.53  & 105.37 \\\hline
+3 Stnd. Devs. Upper Limit& 19.63& 22.23 & 14.87 & 125.83 \\\hline
+\end{tabular}
+\end{table}
+%The Sample digitalOut: %[12, 12, 16, 16, 12, 12, 12, 16, 16, 12, 12, 16, 16, 12, 12, 12, 16, 16, 12, 12]
+%average = 13.6
+%s = 2.01
+%The Sample digitalIn: %[20, 16, 16, 16, 16, 12, 16, 16, 12, 16, 16, 12, 16, 16, 12, 16, 16, 20, 16, 16]
+%average = 15.6
+%s = 2.21
+%The Sample pwm: %[12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 16, 12, 12]
+%average = 12.2
+%s = 0.89
+%The Sample analogue:%[112, 120, 116, 116, 116, 124, 112, 112, 112, 120, 116, 116, 116, 116, 112, 112, 112, 120, 116, 116]
+%average = 115.6
+%s = 3.41
 
-%}
+\begin{table}[!ht]
+	\caption{Table showing microcode instruction latency in microseconds($\mu$s) for the the on-board daughterboard using a sample of 20 consecutive executions.}\label{table:onboard}
+	\begin{tabular}{|l|l|l|l|l|}
+	\toprule
+ \multicolumn{5}{c}{\textbf{One Board \xten readings}} \\\hline
+
+& digitalOut & digitalIn & pwm & analogue \\\hline
+Mean:                   & 39.4 & 83.58 & 57.8 & 215.58\\\hline
+Standard Deviation:     & 2.15 & 2.27  & 4.17  & 2.95 \\\hline
+3 Stnd. Devs. Lower Limit	&32.95	&76.77	&45.29	&206.73\\\hline
+3 Stnd. Devs. Upper Limit	&45.85	&90.39	&70.31	&224.43\\\hline
+\end{tabular}
+\end{table}
+%The Sample digitalOut:% [40, 40, 36, 40, 40, 40, 40, 40, 36, 40, 40, 40, 40, 40, 36, 40, 40, 40, 40, 40]
+%average = 39.4
+%s = 2.15
+%The Sample digitalIn:% [84, 88, 84, 84, 84, 84, 84, 80, 84, 80, 88, 84, 84, 84, 80, 84, 84, 80, 84]
+%average = 83.58
+%s = 2.27
+%The Sample pwm:% [60, 56, 56, 56, 60, 60, 56, 56, 60, 60, 56, 56, 56, 60, 60, 56, 56, 60, 60, 56]
+%average = 57.8
+%s = 4.17
+%The Sample analogue:% [212, 216, 212, 216, 212, 212, 212, 216, 216, 216, 216, 216, 216, 216, 220, 216, 216, 224, 216215.58]
+%average = 215.58
+%s = 2.95
+
+\begin{table}[!ht]
+	\caption{Table showing microcode latency in microseconds($\mu$s) for a daughterboard connected over the peripheral bus using a sample of 20 consecutive executions.}\label{table:offboard}
+	\begin{tabular}{|l|l|l|l|l|}
+	\toprule
+ \multicolumn{5}{c}{\textbf{Two Board \xten readings}} \\\hline
+
+& digitalOut & digitalIn & pwm & analogue \\\hline
+Mean:                       & 261.4 & 554.8 & 319   & 685.2\\\hline
+Standard Deviation:         & 2.98  & 2.63  & 2.20  & 5.43 \\\hline
+3 Stnd. Devs. Lower Limit	& 252.46	&546.91	&312.4	&668.91	\\\hline
+3 Stnd. Devs. Upper Limit	& 270.34	&562.69	&325.6	&701.49	\\\hline
 \end{tabular}
 \end{table}
 
-The latency for output operations took significantly less time than that of input operations. This was expected since there is no waiting period to request the value of the data from the port on the daughterboard for output operations. Conversely with input operations, the system was programmed with a set delay of \_\_\_\_\_\_ which was necessary to allow for the sensors to return their values.
-
-\begin{table}
-    %\scriptsize {%
-	\centering
-	\caption{Table showing microcode latency in microseconds($\mu$s) on the off-board daughteroard over 20 consecutive executions.}
-	
-	\begin{tabular}{|l|l|l|l|}
-	\toprule
- \multicolumn{4}{c}{\textbf{OFFBOARD daughterboard}} \\\hline
-digitalOut & digitalIn & pwm & analogue\\\hline
-568 & 51320 & 688 & 51328\\\hline
-560 & 51320 & 684 & 51320\\\hline
-568 & 51324 & 684 & 51324\\\hline
-568 & 51324 & 684 & 51328\\\hline
-568 & 51332 & 684 & 51324\\\hline
-564 & 51324 & 684 & 51332\\\hline
-564 & 51324 & 684 & 51328\\\hline
-564 & 51320 & 688 & 51324\\\hline
-564 & 51320 & 680 & 51332\\\hline
-568 & 51324 & 688 & 51324\\\hline
-564 & 51324 & 680 & 51324\\\hline
-568 & 51324 & 684 & 51324\\\hline
-564 & 51320 & 684 & 51328\\\hline
-568 & 51328 & 684 & 51324\\\hline
-560 & 51320 & 688 & 51328\\\hline
-564 & 51320 & 688 & 51328\\\hline
-568 & 51324 & 684 & 51332\\\hline
-564 & 51320 & 684 & 51324\\\hline
-564 & 51320 & 684 & 51324\\\hline
-\multicolumn{4}{c}{Average Times} \\\hline
-565.26 & 51322.74 & 684.63 & 51326.32
-
-%}
-\end{tabular}
-\end{table}
-
-We carried out an experiment to determine how the system performed when executing a barrage of instruction and obtained the results listed in table X below. 
-\begin{table}
-    %\scriptsize {%
-	\centering
-	\caption{Table showing microcode latency in microseconds($\mu$s) on the off-board daughteroard for number of instructions executed(no.) and associated time it took to complete over 5050 consecutive executions of digitalOut.}
-	
-	\begin{tabular}{|l|l||l|l||l|l||l|l||l|l||}
-	\toprule
- \multicolumn{10}{c}{\textbf{OFFBOARD daughterboard barrage}} \\\hline
-
-
-no. & time ($\mu$s)& no. & time ($\mu$s)& no. & time ($\mu$s)& no. & time ($\mu$s)& no. & time ($\mu$s) \\\hline
-1 & 568 & 21 & 11840 & 41 & 23120 & 61 & 34380 & 81 & 45648 \\\hline
-2 & 1132 & 22 & 12412 & 42 & 23676 & 62 & 34936 & 82 & 46216 \\\hline
-3 & 1696 & 23 & 12972 & 43 & 24244 & 63 & 35516 & 83 & 46780 \\\hline
-4 & 2268 & 24 & 13524 & 44 & 24796 & 64 & 36080 & 84 & 47352 \\\hline
-5 & 2820 & 25 & 14108 & 45 & 25364 & 65 & 36620 & 85 & 47916 \\\hline
-6 & 3384 & 26 & 14656 & 46 & 25932 & 66 & 37208 & 86 & 48480 \\\hline
-7 & 3948 & 27 & 15228 & 47 & 26484 & 67 & 37772 & 87 & 49044 \\\hline
-8 & 4520 & 28 & 15788 & 48 & 27068 & 68 & 38332 & 88 & 49600 \\\hline
-9 & 5072 & 29 & 16352 & 49 & 27620 & 69 & 38880 & 89 & 50172 \\\hline
-10 & 5636 & 30 & 16908 & 50 & 28188 & 70 & 39456 & 90 & 50736 \\\hline
-11 & 6212 & 31 & 17472 & 51 & 28760 & 71 & 40028 & 91 & 51296 \\\hline
-12 & 6768 & 32 & 18044 & 52 & 29316 & 72 & 40588 & 92 & 51860 \\\hline
-13 & 7332 & 33 & 18600 & 53 & 29872 & 73 & 41156 & 93 & 52420 \\\hline
-14 & 7896 & 34 & 19172 & 54 & 30452 & 74 & 41696 & 94 & 52980 \\\hline
-15 & 8460 & 35 & 19732 & 55 & 31008 & 75 & 42276 & 95 & 53552 \\\hline
-16 & 9020 & 36 & 20300 & 56 & 31552 & 76 & 42844 & 96 & 54112 \\\hline
-17 & 9584 & 37 & 20856 & 57 & 32140 & 77 & 43408 & 97 & 54672 \\\hline
-18 & 10148 & 38 & 21424 & 58 & 32696 & 78 & 43976 & 98 & 55244 \\\hline
-19 & 10708 & 39 & 21988 & 59 & 33248 & 79 & 44536 & 99 & 55804 \\\hline
-20 & 11280 & 40 & 22548 & 60 & 33828 & 80 & 45096 & 100 & 56364 \\\hline
-\multicolumn{10}{c}{Total time taken: 2847984} \\\hline
-\end{tabular}
-\end{table}
- The results showed that even at high instruction thoroughput, the time to execute a particular instruction does not vary significantly from its latency as a single instruction.
+%The Sample digitalOut:% [260, 268, 260, 260, 260, 260, 260, 260, 268, 260, 264, 260, 260, 260, 260, 268, 260, 260, 260, 260]
+%average = 261.4
+%s = 2.98
+%The Sample digitalIn:% [556, 556, 556, 552, 556, 552, 560, 556, 552, 552, 556, 552, 556, 560, 556, 552, 552, 556, 552, 556]
+%average = 554.8  
+%s = 2.63
+%The Sample pwm :%[320, 316, 320, 320, 320, 320, 320, 316, 320, 324, 316, 320, 320, 316, 320, 316, 320, 316, 320, 320]
+%average = 319
+%s = 2.20
+%The Sample analogue:% [668, 656, 668, 656, 656, 660, 656, 664, 656, 656, 656, 656, 652, 656, 656, 656, 656, 652, 672, 656]
+%average = 658.2
+%s = 5.43
 
 
 \section{Discussion} % (fold)
 \label{sec:Discussion}
 
- however, other hardware specific limitations may come into play. These may include, clock speed and available RAM, all of which may differ, even across Arduino hardware platforms.
+The latency for output operations took notably less time than that of input operations. This was expected since input operations consist of two there is no waiting period to request the value of the data from the port on the daughterboard for output operations.
 
+
+
+ however, other hardware specific limitations may come into play. These may include, clock speed and available RAM, all of which may differ, even across Arduino hardware platforms.
+The typical robotics project may never require as many daughter boards since one Arduino Mega may support up to eight sensor ports and six actuator ports. The smaller Arduino Uno can support up to three sensor ports and two actuator ports. Any combination of one or more of these Arduino boards can be used to implement the \xten architecture.
+
+This is necessary to evaluate what type of applications will be suitable for executions based on the speed at which instructions are executed. This can determine how the system will perform when under duress from multiple hardware devices simultaneously executing instructions and requesting attention. These statistics can then be evaluated to deduce the architecture's suitability for a particular project and at what point would it become unusable.
 % section economy (end)

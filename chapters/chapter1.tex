@@ -10,7 +10,7 @@ The \xten robotics platform is a general purpose robotics kit that was designed 
 \item A low overall cost while achieving all the above listed requirements.
 \end{itemize}
 
-Although many general-purpose robotics kits exist, many are either quite limited in the range of models that can be built with them, or demand a high price for their expressiveness. Many of the current robotics kits are designed with a limited number of available ports for attaching sensors and actuators. This is evident in the general purpose LEGO Mindstorms Robotics kit and most of the wheeled platforms like the Boe-bot and the Rug Warrior Pro. % \parencite{6frompaper}. 
+Although many general-purpose robotics kits exist, many are either quite limited in the range of models that can be built with them, or demand a high price for their expressiveness. Many of the current robotics kits are designed with a limited number of available ports for attaching sensors and actuators. This is evident in the general purpose LEGO Mindstorms Robotics kit and most of the wheeled platforms like the Boe-bot and the Rug Warrior Pro. %~\parencite{6frompaper}. 
 The underlying designs of these kits only partially support scaling, or not at all: one is forced to limit the features of their robotic designs to operate within this limitation. Inadequate peripheral interfaces can curb creativity and innovativeness, resulting in unfulfilled designs, especially for robotics novices.
 
 The \xten robotics platform is a mix of both hardware and software. The hardware consists of two types of modules, a motherboard and daughterboard. These however can be implemented on a single piece of hardware with a single microprocessor or on their own physically separate hardware modules. For physically separate boards, they are connected via a bus that passes data and instructions between a single motherboard and one or more daughterboards. The daughterboards in turn process these instruction and data and subsequently executes them by applying them to sensors and actuators connected to their respective ports.
@@ -56,7 +56,7 @@ if(force1.readAnalogue()){
 
 \begin{listing}
 		\footnotesize
-		\caption{Now we add: A pushbutton sensor to the motherboard (or daughterboard \#0). We also add an extra daughterboard with a light sensor, and a DC Motor} \label{code:simpl}
+		\caption{Now we add: A pushbutton sensor to the motherboard (or daughterboard \#0). We also add an extra daughterboard with a light sensor, and a DC Motor} \label{code:simplplus}
 		\begin{minted}[bgcolor=bg,frame=lines,framesep=2mm,label={Complex addition to simple example}]{c}
 /**
 * Import the necessary libraries for the motherboard, 
