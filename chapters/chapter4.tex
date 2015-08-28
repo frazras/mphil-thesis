@@ -16,7 +16,7 @@
 
 This chapter presents evidence showing how the \xten architecture achieves its objectives through the hardware and software platform. We demonstrate this by applying the framework across a number of practical examples before discussing the outcomes.
 
- We demonstrate the framework in action by showing excerpts of sample programs for a simple mobile robot with a number of sensors and actuators distributed across one or more daughterboards. These examples demonstrated the how modularity, scalability and extensibility are expressed through code and hardware configuration.
+ We demonstrate the framework in action by showing excerpts of sample programs for a simple mobile robot with a number of sensors and actuators distributed across one or more daughterboards. These examples demonstrate how modularity, scalability and extensibility are expressed through code and hardware configuration.
  
 All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern microcontroller.
 
@@ -82,7 +82,8 @@ Adding an extra capability was easily and seamlessly carried out using the \xten
 
 \begin{listing}
 		\footnotesize
-		\caption{Example of code modularity (the code components were separated to emphasise modularity).} \label{code:modularity}
+        {\fontsize{8}{6}\selectfont
+		\caption{Example of code modularity (the code components were separated to emphasise modularity). Highlighted region indicates the code added for the new module} \label{code:modularity}
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Modularity in Code}]{c}
         \end{minted}
         \begin{minted}[bgcolor=bg,baselinestretch=1]{c}
@@ -129,7 +130,7 @@ if (lightSensor.readAnalog()>700)
   }
 }	 
 	\end{minted}
-		
+		}
 \end{listing}
 In the code example at Listing \textbf{\ref{code:modularity}}, even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, that did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
 All these features are an indication of a truly modular architecture. As previously defined, we included an entire subsystem without modifying the existing components. The modules can be removed just as easy as they were installed. The level of expertise, with regard to specialised knowledge required to modify this system is also relatively minimal when compared to a generic prototyping platform like the Arduino due to the abstraction in its design.
@@ -139,10 +140,11 @@ All these features are an indication of a truly modular architecture. As previou
 \section{Extensibility and Abstraction} % (fold)
 \label{sec:extensibility_abstraction}
 We demonstrate the \xten architecture's ability to support new and varied types of sensors and actuators. This is accomplished by creating a subclass to either of the existing Sensor or Actuator classes. These parent classes support all the generic operations on all the available sensor and actuator ports. By creating a subclass, all the parent class properties and functions will be inherited. Devices with unique configurations can be supported by utilising the same abstracted daughterboard access available to the parent classes requiring no knowledge of the low-level details of the hardware.
-In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both celsius and fahrenheit units. This code was sourced from the Arduino Playground~\parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
+In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both celsius and fahrenheit units. This code was originally sourced from the Arduino Playground~\parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
 \begin{listing}
 		\footnotesize
-		\caption{Example: A complete library for a thermistor temperature sensor.} \label{code:therm}
+        {\fontsize{8}{6}\selectfont
+		\caption{Example: A complete library for a thermistor temperature sensor. The highlighted region indicates where the \xten microcode was added.} \label{code:therm}
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Thermistor Library}]{c}
 #include "../X10ABOT_MB.h"
 #include <math.h>
@@ -175,16 +177,17 @@ class Thermistor: public Sensor
     }
 };
 	\end{minted}
-		
+		}
 \end{listing}
 
-The conversion instructions of the \xten library in Listing \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analogue pin to read the raw data value acquired from the sensor. The \xten framework possesses special functions that access hardware components, we refer to them as microcode. These functions are at the the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analogue pin. The raw analogue value is then returned to the calling function where it is further processed.
+The conversion instructions of the \xten library in Listing \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analogue pin to read the raw data value acquired from the sensor. These functions are at the the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analogue pin. The raw analogue value is then returned to the calling function where it is further processed.
 
 This thermistor library can then be easily utilised by the user as follows (See Listing \ref{code:thermcode}):
 
 The code in Listing~\textbf{\ref{code:thermcode}} presents a temperature monitoring system that watches the temperature that it receives from two thermistors. If the value read from the thermistors goes beyond particular thresholds for either of them, an alarm is triggered.
 \begin{listing}
 		\footnotesize
+        {\fontsize{8}{6}\selectfont
 		\caption{Example application of the thermistor temperature sensor library.} \label{code:thermcode}
 		\begin{minted}[bgcolor=bg,frame=lines,baselinestretch=1,framesep=2mm,label={Thermistor Example Application}]{c}
 #include <Wire.h>  
@@ -210,7 +213,7 @@ void loop(){
   }
 }
 	\end{minted}
-		
+		}
 \end{listing}
 
 A typical end user would not be involved in creating libraries for sensors. They would have only been exposed to the setup in Listing~\ref{code:thermcode}. The only requisite knowledge would be familiarity with the supported list of functions specified for a thermistor. In this case only \textbf{readThermistorFarenheit()} and  \textbf{readThermistorCelsius()} are specified and both have been used.
@@ -221,7 +224,7 @@ The library for a thermistor was included and it became very straightforward to 
 \label{sec:scalability}
 
 % section scalability (end)
-Based on the results gathered from testing for modularity, an inherent property for scalability can be observed. The method of modular addition lends itself to be scalable to tens of modules as defined by the specifications of the \iic peripheral bus protocol. Scalability is not only measured by how many devices can be connected to the system, but we must take into consideration the performance of the system when all these devices are operational. To investigate this, we benchmarked the performance of the architecture that we implemented on the Arduino platform.  When operating with daughterboards across the peripheral bus, the \xten architecture's major limiting factor becomes the speed of data transfer. The default speed of the \iic peripheral bus when using the Arduino platform is 100Kb/s, this can be further configured to go as high as 400Kb/s. For our application on the Arduino we had best result when performing at approximately 260Kb/s. We performed a number of tests to determine the latency of each type of basic instruction (microcode) to see how they would affect the performance of the entire system. All tests below were carried out on the Arduino Mega, using the Atmel \texttrademark ATMega1280 microcontroller.
+Based on the results gathered from testing for modularity, an inherent property for scalability can be observed. The method of modular addition lends itself to be scalable to tens of modules as defined by the specifications of the \iic peripheral bus protocol. Scalability is not only measured by how many devices can be connected to the system, but we must take into consideration the performance of the system when all these devices are operational. To investigate this, we benchmarked the performance of the architecture that we implemented on the Arduino platform.  When operating with daughterboards across the peripheral bus, the \xten architecture's major limiting factor becomes the speed of data transfer. The default speed of the \iic peripheral bus when using the Arduino platform is 100Kb/s, this can be further configured to go as high as 400Kb/s. For our application on the Arduino we had best result when performing between 230Kb/s and 300Kb/s. We performed a number of tests to determine the latency of each type of basic instruction (microcode) to see how they would affect the performance of the entire system. All tests below were carried out on the Arduino Mega, using the Atmel \texttrademark ATMega1280 microcontroller.
 
 We carried out instruction execution latency tests to evaluate the performance of the \xten framework on the Arduino platform. We performed three sets of test comparing the speed of execution on:
 \begin{itemize}
@@ -238,7 +241,7 @@ $$
 \captionof{figure}{The Sample Standard Deviation equation}\label{eq:sd}
 
 \newpage
-\textbf{The data below display the result of our timing experiment: }
+\textbf{The tables below display the result of our timing experiment: }
 
 \begin{table}[h!]
 	\caption{Table showing instruction latency in microseconds($\mu$s) for a regular Arduino using a sample of 20 consecutive executions.}\label{table:arduinoboard}
@@ -320,15 +323,14 @@ Standard Deviation:         & 2.98  & 2.63  & 2.20  & 5.43 \\\hline
 %s = 5.43
 
 
-\section{Discussion} % (fold)
-\label{sec:Discussion}
+\section{Observations} % (fold)
+\label{sec:Observations}
 
-The latency for output operations took notably less time than that of input operations. This was expected since input operations consist of two there is no waiting period to request the value of the data from the port on the daughterboard for output operations.
+From the results, we have observed that the latency for output operations took notably less time than that of input operations. This was expected since input operations consist of two instructions over the peripheral bus. The first is a request for the data and the second is a retrieval. We had to intentionally slow down the speed of the second request from 300Kb/s to 230Kb/s to allow time for the daughterboard to retrieve the requested data. We attempted faster speeds but it resulted in periodic data loss. Output operations only required that one instruction be sent across the bus.
 
+We calculated the standard deviation and presented the data ranges for up to three standard deviations. These upper and lower limits indicate the statistical prediction of the maximum and minimum execution time for each function with about 99.7 percent confidence. The end user can then determine if this latency is acceptable for their application.
 
+We also presented a comparative analysis of the Arduino with and without the \xten system. We observed that the all readings on all platforms fell below the 1 millisecond mark. For most school based or hobbyist projects, this falls within an acceptable range since realtime response is rarely required.
 
- however, other hardware specific limitations may come into play. These may include, clock speed and available RAM, all of which may differ, even across Arduino hardware platforms.
-The typical robotics project may never require as many daughter boards since one Arduino Mega may support up to eight sensor ports and six actuator ports. The smaller Arduino Uno can support up to three sensor ports and two actuator ports. Any combination of one or more of these Arduino boards can be used to implement the \xten architecture.
-
-This is necessary to evaluate what type of applications will be suitable for executions based on the speed at which instructions are executed. This can determine how the system will perform when under duress from multiple hardware devices simultaneously executing instructions and requesting attention. These statistics can then be evaluated to deduce the architecture's suitability for a particular project and at what point would it become unusable.
+The results emphasised that the advantages of \xten platform are more pronounced when it has to manipulate devices across multiple daughterboards. There are tradeoffs in performance which had to be sacrificed to accomplish this but it allowed the the framework to achieve its goals of being modular, scalable and extensible.
 % section economy (end)

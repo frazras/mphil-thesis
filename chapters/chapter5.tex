@@ -1,27 +1,32 @@
 \chapter{Conclusion and Discussion} 
 By actualising the architectural design concepts of modularity, scalability and extensibility discussed in Chapter~\ref{cha:background_and_motivation}. We were able to create a platform that effectively accomplished these required objectives in a cost-effective manner. We have also realised that this design framework has created an extensible platform for numerous avenues of future work. There are opportunities to support various programming interfaces, porting \xten to more powerful hardware and support of additional sensor and actuator devices.
 
-\section{Achievements}
-The following are a list of the main objectives that were accomplished:
-\begin{itemize}
-\item Designed modular, distributed hardware framework with pluggable peripheral boards
-\item Engineered a model that can support almost 900 sensors and 900 actuators
-\item Created an extensible software framework that can support the addition of many types of sensors \& actuators
-\item Created a flexible system that allows easy interoperability with distinct hardware architectures
-\item Kept the cost low by using the Arduino as the main hardware component
-\item Successfully tested the framework with both digital and analog sensors and actuators for latency and scalability
-\end{itemize}
-
 \section{Limitations}
 The efficiency of the \xten architecture is limited by the speed of its peripheral bus, which in our case is \iic and the power of the processors that implement it.
 The limitation details are listed below:
 \begin{itemize}
-\item Communication between motherboard and daughterboard are limited by the speed on the \iic bus which is not only limited by its specification but the clock speed of the host processor.
-\item Our implementation was done on an 8-bit Arduino processor running at 16MHz with 8KB of SRAM. This inherently limited the kinds of tasks that could have been attempted.
-\item Other limitations include the \iic 112 device limit on the peripheral bus, and the limit of 16 sensors and actuators (8 each) per daughterboard.
+\item Our implementation was done on an 8-bit Arduino processor running at 16MHz with 8KB of SRAM. This inherently limited the kinds of tasks that could have been attempted. This is not an unsurmountable obstacle however for most projects within the scope of the target user's applications, this would be adequate. There have also been recent advancement in the Arduino community where there is now available 32-bit Arduinos running at 84Mhz with 96KB of SRAM. Using this hardware would significantly increase the speed of operations on the \xten eclipsing the data in the results section of this thesis without significantly increasing the overall cost. Porting the existing code base to this platform would require very minor changes since Arduino code is mostly hardware independent.
+
+\item Communication between motherboard and daughterboard are limited by the speed on the \iic bus which is not only limited by its specification but the clock speed of the host processor. As mentioned previously, better hardware would overcome this limitation. Applications which may require a more powerful system may include ones with significant video processing.
+\item Other limitations include the \iic 112 device limit on the peripheral bus, and the limit of 16 sensors and actuators (8 each) per daughterboard. These limits are relatively very high and are more than adequate for applications within the scope of this project.
+\item To achieve the goals of modularity, scalability and extensibility, we made a design decision to create specialised input and output ports. These ports are further specialised by having pins dedicated to certain functionalities. This decision limits the number of devices that can be attached per daughterboard to the number of ports that daughterboard supplies. However we compared the number of ports when utilising a motherboard and a daughterboard from an Arduino (4 sensor ports, 6 actuator ports) to the number provided by a popular kit like the LEGO Mindstorms NXT (4 sensor ports, 3 actuator ports) and based on a cost per port comparison, ~\$60 and ~\$260 US dollars respectively, we were in a much better position.
 \end{itemize}
 
-We can therefore conclude that the \xten architecture provides a suitable platform that will enable efficient robotics development. It will accomplish this by providing a model that can scale to a large number of sensors and actuators. This was made possible by utilising a distributed modular framework of daughterboards that can be attached whenever needed. We performed tests to measure the latency of I/O instructions between the peripheral devices and the motherboard. We found it to be in an acceptable range that was tolerable for most robotics applications within the scope of 8-bit microprocessors. This delay time would also see improvements if the processor and communication speeds were increased. The performance of the system is dependent upon the hardware that implements it.
+\section{Achievements}
+The following are a list of the main objectives that were accomplished:
+\begin{itemize}
+\item \textbf{Designed modular, distributed hardware framework with pluggable peripheral boards:} We are now able to easily add or remove hardware and software modules in and out out of the system.
+\item \textbf{Engineered a model that can support almost 900 sensors and 900 actuators:}Using the capabilities of the \iic peripheral bus, we were able to support up to 112 daughterboards supporting 8 sensor and 8 actuators each.
+\item \textbf{Created an extensible software framework that can support the addition of many types of sensors \& actuators:} Taking advantage of the abstraction of ports and pins accomplished in the framework design, we were able to create a platform for supporting the creation of libraries that support new sensors and actuators.
+\item \textbf{Created a flexible system that allows easy interoperability with distinct hardware architectures:} The \xten was designed with a middle-ware type software layer that allows the system to communicate with hardware platforms that are very different from each other using a standard protocol.
+\item \textbf{Kept the cost low by using the Arduino as the main hardware component:} The system was designed to be implemented on very inexpensive hardware such as Arduino based devices. It can scale to support a large number of these inexpensive devices. The system also adapts well to more powerful hardware and can take advantage of the available resources.
+\item \textbf{Successfully tested the framework with both digital and analog sensors and actuators for latency and scalability:}
+We benchmarked the system to determine its suitability for robotics applications which student's and hobbyists may pursue. We found the performance to be acceptable and where more power is required, more powerful hardware can be acquired.
+\end{itemize}
+
+
+
+We can therefore conclude that the \xten architecture provides a suitable platform that will enable efficient robotics development for our target audience of students and hobbyists. It will accomplish this by providing a model that can scale to a large number of sensors and actuators. This was made possible by utilising a distributed modular framework of daughterboards that can be attached whenever needed. We performed tests to measure the latency of I/O instructions between the peripheral devices and the motherboard. We found it to be in an acceptable range that was tolerable for most robotics applications within the scope of 8-bit microprocessors. This delay time would also see improvements if the processor and communication speeds were increased. The performance of the system is dependent upon the hardware that implements it.
 
 \section{Future Work}
 In order to facilitate processor intensive operations, the architecture would have to be ported to a more powerful hardware platform. At the time of writing, there was a recent release of an Arduino based on the 32-bit, 84Mhz Arm core processor with 96 Kbytes of SRAM. There is also the possibility of porting the architecture over to the Raspberry Pi for an even more powerful motherboard.

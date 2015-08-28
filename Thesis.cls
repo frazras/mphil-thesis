@@ -32,7 +32,7 @@
 \titleformat{\section}{\normalsize}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalsize}{\thesubsection}{1em}{}
 \titleformat{\chapter}[block]
-  {\center}{\MakeUppercase\chaptertitlename~\ \thechapter}{13pt}{\uppercase}
+  {\center}{\MakeUppercase\chaptertitlename~\ \thechapter \\ }  {12pt}{\uppercase}
 \titlespacing{\chapter}{0pt}{0pt}{15pt}
 
 \renewcommand{\bibname}{REFERENCES\\}
@@ -62,10 +62,10 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2.0ex plus0.5ex minus0.2ex}
 \usepackage{vmargin}
-\setmarginsrb           { 1.5in}  % left margin
-                        { 0.6in}  % top margin
+\setmarginsrb           { 2in}  % left margin
+                        { 1.0in}  % top margin
                         { 1.0in}  % right margin
-                        { 0.8in}  % bottom margin
+                        { 1.0in}  % bottom margin
                         {  20pt}  % head height
                         {0.25in}  % head sep
                         {   9pt}  % foot height
@@ -337,8 +337,8 @@
 }\end{spacing}
 }
 \renewcommand\listoffigures{
-\btypeout{LIST OF FIGURES}
-\addtotoc{LIST OF FIGURES}
+\btypeout{List of Figures}
+\addtotoc{List of Figures}
 \begin{spacing}{1}{
     \setlength{\parskip}{1pt}
     \if@twocolumn
