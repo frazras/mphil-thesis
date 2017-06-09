@@ -18,7 +18,7 @@ This chapter presents evidence showing how the \xten architecture achieves its o
 
  We demonstrate the framework in action by showing excerpts of sample programs for a simple mobile robot with a number of sensors and actuators distributed across one or more daughterboards. These examples demonstrate how modularity, scalability and extensibility are expressed through code and hardware configuration.
  
-All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern microcontroller.
+All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern microcontroller that supports \iic and the operations listed in in Table \textbf{\ref{tab:microcode}}.
 
 Listing~\textbf{\ref{code:example}} is a typical code setup for a very simple mobile robot illustrated in Figure \textbf{\ref{fig:singleboard}}. All the sensors and actuators were placed on one board; for this particular implementation, we utilised the \textbf{internal} daughterboard which is hosted on the same board as the motherboard. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor.
 
@@ -132,10 +132,10 @@ if (lightSensor.readAnalog()>700)
 	\end{minted}
 		}
 \end{listing}
-In the code example at Listing \textbf{\ref{code:modularity}}, even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, that did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
-All these features are an indication of a truly modular architecture. As previously defined, we included an entire subsystem without modifying the existing components. The modules can be removed just as easy as they were installed. The level of expertise, with regard to specialised knowledge required to modify this system is also relatively minimal when compared to a generic prototyping platform like the Arduino due to the abstraction in its design.
+Listing \textbf{\ref{code:modularity}} shows, that even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
+All these features are an indication of a truly modular architecture. As previously defined, we included an entire subsystem without modifying the existing components. The modules can be removed just as easily as they were installed. The level of expertise, with regard to specialised knowledge required to modify this system is also relatively minimal when compared to  the same Arduino platform without the abstraction of the \xten framework.
 
-
+\newpage
 % chapter findings_and_results (end)
 \section{Extensibility and Abstraction} % (fold)
 \label{sec:extensibility_abstraction}
@@ -180,7 +180,7 @@ class Thermistor: public Sensor
 		}
 \end{listing}
 
-The conversion instructions of the \xten library in Listing \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analogue pin to read the raw data value acquired from the sensor. These functions are at the the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analogue pin. The raw analogue value is then returned to the calling function where it is further processed.
+The conversion instructions of the \xten library in Listing \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analog pin to read the raw data value acquired from the sensor. These functions are at the the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analog pin. The raw analog value is then returned to the calling function where it is further processed.
 
 This thermistor library can then be easily utilised by the user as follows (See Listing \ref{code:thermcode}):
 
@@ -219,7 +219,7 @@ void loop(){
 A typical end user would not be involved in creating libraries for sensors. They would have only been exposed to the setup in Listing~\ref{code:thermcode}. The only requisite knowledge would be familiarity with the supported list of functions specified for a thermistor. In this case only \textbf{readThermistorFarenheit()} and  \textbf{readThermistorCelsius()} are specified and both have been used.
 The library for a thermistor was included and it became very straightforward to utilise the sensor readings afterwards.
 % section extensibility and abstraction (end)
-
+\newpage
 \section{Scalability} % (fold)
 \label{sec:scalability}
 
@@ -249,7 +249,7 @@ $$
 	\toprule
  \multicolumn{5}{c}{\textbf{Direct Arduino Board readings}} \\\hline
 
-& digitalOut & digitalIn & pwm & analogue \\\hline
+& digitalOut & digitalIn & pwm & analog \\\hline
 Mean:                   & 13.6 & 15.6 & 12.2 & 115.6\\\hline
 Standard Deviation:     & 2.01 & 2.21  & 0.89  & 3.41 \\\hline
 3 Stnd. Devs. Lower Limit& 7.57 & 8.97  & 9.53  & 105.37 \\\hline
@@ -265,7 +265,7 @@ Standard Deviation:     & 2.01 & 2.21  & 0.89  & 3.41 \\\hline
 %The Sample pwm: %[12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 16, 12, 12]
 %average = 12.2
 %s = 0.89
-%The Sample analogue:%[112, 120, 116, 116, 116, 124, 112, 112, 112, 120, 116, 116, 116, 116, 112, 112, 112, 120, 116, 116]
+%The Sample analog:%[112, 120, 116, 116, 116, 124, 112, 112, 112, 120, 116, 116, 116, 116, 112, 112, 112, 120, 116, 116]
 %average = 115.6
 %s = 3.41
 
@@ -275,7 +275,7 @@ Standard Deviation:     & 2.01 & 2.21  & 0.89  & 3.41 \\\hline
 	\toprule
  \multicolumn{5}{c}{\textbf{One Board \xten readings}} \\\hline
 
-& digitalOut & digitalIn & pwm & analogue \\\hline
+& digitalOut & digitalIn & pwm & analog \\\hline
 Mean:                   & 39.4 & 83.58 & 57.8 & 215.58\\\hline
 Standard Deviation:     & 2.15 & 2.27  & 4.17  & 2.95 \\\hline
 3 Stnd. Devs. Lower Limit	&32.95	&76.77	&45.29	&206.73\\\hline
@@ -291,7 +291,7 @@ Standard Deviation:     & 2.15 & 2.27  & 4.17  & 2.95 \\\hline
 %The Sample pwm:% [60, 56, 56, 56, 60, 60, 56, 56, 60, 60, 56, 56, 56, 60, 60, 56, 56, 60, 60, 56]
 %average = 57.8
 %s = 4.17
-%The Sample analogue:% [212, 216, 212, 216, 212, 212, 212, 216, 216, 216, 216, 216, 216, 216, 220, 216, 216, 224, 216215.58]
+%The Sample analog:% [212, 216, 212, 216, 212, 212, 212, 216, 216, 216, 216, 216, 216, 216, 220, 216, 216, 224, 216215.58]
 %average = 215.58
 %s = 2.95
 
@@ -301,7 +301,7 @@ Standard Deviation:     & 2.15 & 2.27  & 4.17  & 2.95 \\\hline
 	\toprule
  \multicolumn{5}{c}{\textbf{Two Board \xten readings}} \\\hline
 
-& digitalOut & digitalIn & pwm & analogue \\\hline
+& digitalOut & digitalIn & pwm & analog \\\hline
 Mean:                       & 261.4 & 554.8 & 319   & 685.2\\\hline
 Standard Deviation:         & 2.98  & 2.63  & 2.20  & 5.43 \\\hline
 3 Stnd. Devs. Lower Limit	& 252.46	&546.91	&312.4	&668.91	\\\hline
@@ -318,7 +318,7 @@ Standard Deviation:         & 2.98  & 2.63  & 2.20  & 5.43 \\\hline
 %The Sample pwm :%[320, 316, 320, 320, 320, 320, 320, 316, 320, 324, 316, 320, 320, 316, 320, 316, 320, 316, 320, 320]
 %average = 319
 %s = 2.20
-%The Sample analogue:% [668, 656, 668, 656, 656, 660, 656, 664, 656, 656, 656, 656, 652, 656, 656, 656, 656, 652, 672, 656]
+%The Sample analog:% [668, 656, 668, 656, 656, 660, 656, 664, 656, 656, 656, 656, 652, 656, 656, 656, 656, 652, 672, 656]
 %average = 658.2
 %s = 5.43
 
@@ -330,7 +330,7 @@ From the results, we have observed that the latency for output operations took n
 
 We calculated the standard deviation and presented the data ranges for up to three standard deviations. These upper and lower limits indicate the statistical prediction of the maximum and minimum execution time for each function with about 99.7 percent confidence. The end user can then determine if this latency is acceptable for their application.
 
-We also presented a comparative analysis of the Arduino with and without the \xten system. We observed that the all readings on all platforms fell below the 1 millisecond mark. For most school based or hobbyist projects, this falls within an acceptable range since realtime response is rarely required.
+We also presented a comparative analysis of the Arduino with and without the \xten system. We observed that the all readings on all platforms fell below the 1 millisecond mark. For most school based or hobbyist projects, this falls within an acceptable range.
 
 The results emphasised that the advantages of \xten platform are more pronounced when it has to manipulate devices across multiple daughterboards. There are tradeoffs in performance which had to be sacrificed to accomplish this but it allowed the the framework to achieve its goals of being modular, scalable and extensible.
 % section economy (end)

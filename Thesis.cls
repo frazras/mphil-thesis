@@ -31,6 +31,7 @@
 \usepackage{titlesec}
 \titleformat{\section}{\normalsize}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalsize}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize}{\thesubsubsection}{1em}{}
 \titleformat{\chapter}[block]
   {\center}{\MakeUppercase\chaptertitlename~\ \thechapter \\ }  {12pt}{\uppercase}
 \titlespacing{\chapter}{0pt}{0pt}{15pt}

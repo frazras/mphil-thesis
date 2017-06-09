@@ -38,6 +38,8 @@
 \urlstyle{rm}
 \hypersetup{linkcolor=black, urlcolor=black, colorlinks=true, citecolor=black}
 \usepackage{float}
+\usepackage{chngcntr}
+\AtBeginDocument{\counterwithin{listing}{chapter}}
 
 \begin{document}
 
@@ -46,9 +48,11 @@
 \newcommand{\reg}{\textsuperscript{\textregistered}}
 \newcommand{\lego}{LEGO\reg }
 \newcommand{\iic}{I$^2$C }
+\newcommand{\includecode}[1]{\inputminted[linenos=true,breaklines=true,baselinestretch=1,frame=lines,framesep=2mm,label=\url{#1}]{c}{#1}}
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
 \definecolor{hilite}{rgb}{0.95,0.95,0.5}
 %\renewcommand\listingscaption{Code Example}
+%\renewcommand{\thelisting}{\thesection-\arabic{listing}}
 
 
 \pagestyle{fancy}
