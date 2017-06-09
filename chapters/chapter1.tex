@@ -2,7 +2,7 @@
 
 
 \section{Context}
-The \xten robotics platform is a general purpose robotics kit that was designed to be a low cost, modular, scalable and extensible option for developing custom robotics projects. The system's intended audience and applications range from simple primary school level robots to more complex creations used at university level robotics competitions and research programs. The \xten kit's focus was to improve upon current general robotics kit standards by providing:
+The \xten robotics platform is a general purpose robotics kit that is designed to be a low cost, modular, scalable and extensible option for developing custom robotics projects. The system's intended audience and applications range from simple primary school level robots to more complex creations used at university level robotics competitions and research programs. The \xten kit's focus is to improve upon current general robotics kit standards by providing:
 \begin{itemize}
 \item Support for potentially hundreds of sensors and actuators.
 \item A modular design with pluggable add-on peripheral boards.
@@ -15,22 +15,21 @@ The underlying designs of these kits only partially support scaling, or not at a
 
 The \xten robotics platform is a mix of both hardware and software. The hardware consists of two types of modules, a motherboard and daughterboard. These however can be implemented on a single piece of hardware with a single microprocessor or on their own physically separate hardware modules. For physically separate boards, they are connected via a bus that passes data and instructions between a single motherboard and one or more daughterboards. The daughterboards in turn process these instruction and data and subsequently execute them by applying them to sensors and actuators connected to their respective ports.
 
-There are specialised software components present on each hardware module. The motherboard hosts the user generated program code and the system software that processes it. The middleware is present on both the motherboard and daughterboard, and is responsible for seamless cross-board communication. Finally there is the firmware which is embedded in the daughterboard, this is semi-permanent software that was specialised to interpret and execute instructions passing between the sensors and actuators to and from the motherboard.
+There are specialised software components present on each hardware module. The motherboard hosts the user generated program code and the system software that processes it. The middleware is present on both the motherboard and daughterboard, and is responsible for seamless cross-board communication. Finally there is the firmware which is embedded in the daughterboard, this is semi-permanent software that is specialised to interpret and execute instructions passing between the sensors and actuators to and from the motherboard.
 
 \section{Thesis Summary}
-Outlined in this thesis are the details of how we progressed from our conceptual ideal product of a low-cost, modular, scalable, extensible robotics kit to transforming these ideals into realistic software and hardware components. These components were modelled and tested using the Arduino embedded development platform. We utilised one or more Arduinos to represent the motherboard daughterboard setup that we envisioned. We also took advantage of the the Arduino software framework which was used to develop the system software, middleware and firmware, all user produced program code would also need to comply with the Arduino software framework.
+Outlined in this thesis are the details of how we progressed from our conceptual ideal product of a low-cost, modular, scalable, extensible robotics kit to transforming these ideals into realistic software and hardware components. These components are modelled and tested using the Arduino embedded development platform. We utilize one or more Arduinos to represent the motherboard daughterboard setup that we envisioned. We also take advantage of the Arduino software framework which is used to develop the system software, middleware and firmware.
 
-The outcome of the use of these tools and strategies gave us a system that was able to easily control multiple sensors and actuators in a scalable and modular way while allowing for extensibility.
+The outcome of the use of these tools and strategies gives us a system that is able to easily control multiple sensors and actuators in a scalable and modular way while allowing for extensibility.
 
-Listing~\textbf{\ref{code:simpl}} describes a typical code setup for a very simple mobile robot using the \xten framework. All the sensors and actuators were placed on one board (the daughterboard) for this simple implementation. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor. The instruction in Listing~\textbf{\ref{code:simpl}} drives the motor at full speed if either the touch sensor records an input or if there is a force on the force sensor above a certain threshold, otherwise the motor will be given the off signal.
+Figure~\textbf{\ref{code:simpl}} describes a typical code setup for a very simple mobile robot using the \xten framework. All the sensors and actuators are placed on one board (the daughterboard) for this simple implementation. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor. The instruction in Figure~\textbf{\ref{code:simpl}} drives the motor at full speed if either the touch sensor records an input or if there is a force on the force sensor above a certain threshold, otherwise the motor will be given the off signal.
 
- We then further extended the same simple example from Listing~\textbf{\ref{code:simpl}} to show how the \xten framework is able to scale modularly.
- In Listing~\ref{code:simplplus} an extra DC motor and a light sensor were added as a single module. Instructions were then added to activate the new DC motor if there was light intensity above a certain threshold on the sensor. The code example shows that even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process.
+ We then further extend the same simple example from Figure~\textbf{\ref{code:simpl}} to show how the \xten framework is able to scale modularly.
+ In Figure~\ref{code:simplplus} an extra DC motor and a light sensor is added as a single module. Instructions are then added to activate the new DC motor if there is light intensity above a certain threshold on the sensor. The code example shows that even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process.
  
 
-\begin{listing}
+\begin{figure}
 		\footnotesize
-		\caption{Example of a single controller with a force sensor and a DC motor.} \label{code:simpl}
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Simple Example}]{c}
 
 /**
@@ -52,20 +51,20 @@ void setup(){}
 void loop(){
 //Continuously check the sensors for a reading
   if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
-    motor1.aB(); //Turn motor1 on by sending LO on pin a and HI on pin B
+    motor1.low_a_hi_b(); //Turn motor1 on by sending LO on pin a and HI on pin B
     motor1.pwm_a(100); //operate motor1 at full power (100%) 
   }else{
-    motor1.ab();//Turn motor1 off by sending LO on pin a and pin b
+    motor1.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
   }
 }	 
 	\end{minted}
+  \caption{Example of a single controller with a force sensor and a DC motor} \label{code:simpl}
 		
-\end{listing}
+\end{figure}
 
 
-\begin{listing}
+\begin{figure}
 		\footnotesize
-		\caption{Now we add: A pushbutton sensor to the motherboard (or daughterboard \#0). We also add an extra daughterboard with a light sensor, and a DC Motor} \label{code:simplplus}
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Complex addition to simple example}]{c}
         \end{minted}
         \begin{minted}[bgcolor=bg,baselinestretch=1]{c}
@@ -88,10 +87,10 @@ void setup(){}
 void loop(){
 //Continuously check the sensors for a reading
 if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
-    motor1.aB(); //Turn motor1 on by sending LO on pin a and HI on pin B
+    motor1.low_a_hi_b(); //Turn motor1 on by sending LO on pin a and HI on pin B
     motor1.pwm_a(100); //operate motor1 at full power (100%) 
   }else{
-    motor1.ab();//Turn motor1 off by sending LO on pin a and pin b
+    motor1.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
   }
  const byte BOARD2 = 9; //Constant with arbitrary daughterboard address
  //Declare motor on daughterboard #9, actuator port #1
@@ -103,23 +102,24 @@ if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
 //on daughterboard #9 while light is on the sensor, activate motor2
 if (lightSensor.readAnalog()>700)
   {
-    motor2.Ab(); //Turn motor2 on by sending HI on pin A and LO on pin b
+    motor2.hi_a_low_b(); //Turn motor2 on by sending HI on pin A and LO on pin b
     motor2.pwm_a(50); //operate motor2 at half power (50%)
   }else{
-    motor2.ab();//Turn motor1 off by sending LO on pin a and pin b
+    motor2.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
   }
 }	 
 	\end{minted}
-		
-\end{listing}
+		\caption{Now we add: A pushbutton sensor to the motherboard (or daughterboard \#0). We also add an extra daughterboard with a light sensor, and a DC Motor} \label{code:simplplus}
+    
+\end{figure}
 
 \paragraph*{Thesis Statement}
-\textit{It is possible to design an architecture for a general purpose robotics platform using the Arduino\texttrademark\ microcontroller and supporting software, open-source libraries and tools. It appears that by using a modular, distributed architecture for both hardware and software, it is possible to create a low cost, scalable system with the ability to support hundreds of sensors and actuators. Furthermore, the same API for hardware control that was used to implement the modular and scalable design can be leveraged to allow user defined extensions to hardware interfaces. Finally, all of this can be implemented with only moderate latency penalties (~250-540$\mu$s per digital read/write) .} 
+\textit{It is possible to design an architecture for a general purpose robotics platform using the Arduino\texttrademark\ microcontroller and supporting software, open-source libraries and tools. It appears that by using a modular, distributed architecture for both hardware and software, it is possible to create a low cost, scalable system with the ability to support hundreds of sensors and actuators. Furthermore, the same API for hardware control that is used to implement the modular and scalable design can be leveraged to allow user defined extensions to hardware interfaces. Finally, all of this can be implemented with only moderate latency penalties (~250-540$\mu$s per digital read/write) .} 
 
 
 \section{Structure of Thesis}
-Chapter 2 explores the design goals of the \xten platform, how the the same principles were being used by other robotics systems and how we applied them for our purpose. 
+Chapter 2 explores the design goals of the \xten platform, how the same principles are being used by other robotics systems and how we apply them for our purpose. 
 Chapter 3 describes the design and implementation of the entire platform, the technologies used and how we integrated them to work seamlessly together.
-Chapter 4 illustrates the results that will demonstrate the effectiveness of the design strategies we used.
+Chapter 4 illustrates the results that demonstrates the effectiveness of the design strategies we use.
 Chapter 5 explores the potential areas for future work and concludes the thesis.
 

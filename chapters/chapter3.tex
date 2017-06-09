@@ -56,13 +56,20 @@ The motherboard acts as the head of the distributed system of peripheral boards.
 	  \end{center}
 	\end{figure}
 	
-	The Peripheral Bus is the central medium that connects the motherboard to one or more daughterboards and facilitates the communication of data and instructions between them. The peripheral bus is implemented using the \iic serial communication protocol. \iic is a multi-master, addressable slave, two wire bus serial protocol. It supports up to 112 uniquely addressable devices per bus (128 minus 16 reserved addresses), 8-bit oriented, bidirectional data transfers can be made at 100 Kbits/s in the Standard-mode, 400 Kbits/s in the Fast-mode, 1 Mbits/s in Fast-mode Plus, or up to 3.4 Mbits/s in the High-speed mode ~\parencite{edubots, i2cfaq}. While operating in its standard-mode, the I2C bus can be as long as 9 - 12 feet without any significant noise interference ~\parencite{Ferrell}. This distance is quite sufficient for a robotics kit where the peripherals are not usually more than 3 feet away from the controller circuit. As such, \iic provides a low-cost solution for interconnecting large numbers of devices operating at relatively slow speeds, such as sensors or other external devices connected to a microcontroller. A number of robotics projects implement this method of data communication, including the popular NXT LEGO Mindstorms Kit, ISocRob, and the Hannibal hexapod autonomous robot~\parencite{Ferrell, hannibal, Ventura}.
+	The Peripheral Bus is the central medium that connects the motherboard to one or more daughterboards and facilitates the communication of data and instructions between them. The peripheral bus is implemented using the \iic serial communication protocol. \iic is a multi-master, addressable slave, two wire bus serial protocol. It supports up to 112 uniquely addressable devices per bus (128 minus 16 reserved addresses), 8-bit oriented, bidirectional data transfers can be made at 100 Kbits/s in the Standard-mode, 400 Kbits/s in the Fast-mode, 1 Mbits/s in Fast-mode Plus, or up to 3.4 Mbits/s in the High-speed mode ~\parencite{edubots, i2cfaq}. While operating in its standard-mode, the I2C bus can be as long as 9 - 12 feet without any significant noise interference ~\parencite{hannibal}. This distance is quite sufficient for a robotics kit where the peripherals are not usually more than 3 feet away from the controller circuit. As such, \iic provides a low-cost solution for interconnecting large numbers of devices operating at relatively slow speeds, such as sensors or other external devices connected to a microcontroller. A number of robotics projects implement this method of data communication, including the popular NXT LEGO Mindstorms Kit, ISocRob, and the Hannibal hexapod autonomous robot~\parencite{hannibal, Ventura}.
 	
 	% subsubsection the_peripheral_bus (end)
-	All communication on the \iic bus is initiated by the bus master or, as in our case, the motherboard. This is not suitable in all situations, e.g.: when a sensor detects an input that needs to be processed immediately. Even if all the daughterboards are periodically polled, the elapsed time may cause the sensor data to become invalid or ineffective. That is why we utilised the multi-master capability of the \iic peripheral bus to accomplish arbitration. \iic inherently supports collision detection and bus arbitration, bus arbitration refers to a portion of the protocol that ensures that when multiple masters try to control the bus simultaneously, it allows only one master full control of the bus while queuing the prospective master without any corruption or dataloss~\parencite{nxpi2c}. The motherboard has primary control over the peripheral bus but can give up the control to any daughterboard that wants to gain temporary bus-master status. Each daughterboard can simply import the code that includes the motherboard's functionality, then make the same function calls for the purpose of sending data to the original motherboard. When the daughterboard takes control of the bus, the motherboard will then make use of its assiged \iic address.
+	All communication on the \iic bus is initiated by the bus master or, as in our case, the motherboard. This is not suitable in all situations, e.g.: when a sensor detects an input that needs to be processed immediately. Even if all the daughterboards are periodically polled, the elapsed time may cause the sensor data to become invalid or ineffective. That is why we utilized the multi-master capability of the \iic peripheral bus to accomplish arbitration. \iic inherently supports collision detection and bus arbitration, bus arbitration refers to a portion of the protocol that ensures that when multiple masters try to control the bus simultaneously, it allows only one master full control of the bus while queuing the prospective master without any corruption or dataloss~\parencite{nxpi2c}. The motherboard has primary control over the peripheral bus but can give up the control to any daughterboard that wants to gain temporary bus-master status. 
+
+	Bus arbitration by the daughterboard is trivial and is accomplished by simply importing both the functionality for the motherboard and daughterboard. Each daughterboard would then have to know the motherboard's \iic address and make the same function calls a motherboard would for the purpose of sending data when it is ready to transmit.
+	
 	The peripheral bus allows for easy connection of additional devices because they can be daisy-chained onto each other reducing the need for extensive and confusing wiring. Since the peripheral bus is an \iic bus, it is compatible with ``non-daughterboard'' \iic compatible devices. The framework was designed to accommodate sensors and actuators as specialised, single device daughterboards. This was also a method of ensuring maximal extensibility.
 	
 	There is one exception to the use of the \iic bus as the main peripheral bus, this involves the use of an internal daughterboard. We will expound on this concept in the next section.
+
+
+
+
 	
 	\subsubsection{The Daughterboard} % (fold)
 	\label{ssub:the_daughterboard}
@@ -72,7 +79,7 @@ The motherboard acts as the head of the distributed system of peripheral boards.
 	\label{ssub:internal_daughterboard}
 	
 	% subsubsection internal_daughterboard (end)
-	On a typical motherboard circuitry, the only external I/O pins that are generally utilised are SCK and SCL that operate the \iic protocol. This leaves a large number of unused IO pins that could have otherwise been used for some kind of operation. We then came up with a method for utilising these extra resources without breaking the design of the architecture. We designed a virtual, internal daughterboard, that uses the same microprocessor and physical board as the motherboard. This internal daughterboard is assigned with address number zero(0). All its data and instructions are communicated using direct parameter passing instead of across the peripheral bus. This particular exception is abstracted by the middleware~\ref{ssub:middleware} and is totally hidden from both the motherboard and the internal daughterboard.
+	On a typical motherboard circuitry, the only external I/O pins that are generally utilized are SCK and SCL that operate the \iic protocol. This leaves a large number of unused IO pins that could have otherwise been used for some kind of operation. We then came up with a method for utilising these extra resources without breaking the design of the architecture. We designed a virtual, internal daughterboard, that uses the same microprocessor and physical board as the motherboard. This internal daughterboard is assigned with address number zero(0). All its data and instructions are communicated using direct parameter passing instead of across the peripheral bus. This particular exception is abstracted by the middleware described in section~\ref{ssub:middleware} and is totally hidden from both the motherboard and the internal daughterboard.
 	
 	\begin{figure}[h]
 	  \begin{center}
@@ -89,7 +96,7 @@ The motherboard acts as the head of the distributed system of peripheral boards.
 \begin{figure}[h]
   \begin{center}
     \includegraphics[width=0.5\columnwidth]{Figures/Ports.pdf}
-    \caption{The sensor and the actuator ports.}
+    \caption{The sensor and the actuator ports}
   \end{center}
 \end{figure}
 
@@ -149,7 +156,7 @@ The library was designed not only to provide common robotics functionality to it
             Digital I/O  & Read/Write & HIGH/LOW \\\hline
             Analog & Read & n/a \\\hline
             PWM & Write & Frequency and Duty Cycle \\\hline
-           % \multicolumn{3}{c}{Unimplemented Features.} \\\hline
+           % \multicolumn{3}{c}{Unimplemented Features} \\\hline
             %I$^{2}$C & Read/Write & Serial Data \\\hline 
             %RS-232 & Read/Write & Serial Data \\\hline 
             %Watch & Rising/Falling Edge & Threshold Value\\\hline 
@@ -157,16 +164,16 @@ The library was designed not only to provide common robotics functionality to it
             \end{tabular} 
             }
 	  \caption{The complete set of hardware operations supported by the
-	    microcode interface to the daughterboards.}% as well as a few planned features.}
+	    microcode interface to the daughterboards}% as well as a few planned features}
 	  \label{tab:microcode}
 	\end{table}
 	\normalsize
 	
  The current microcode instructions include analog, digital and PWM and are the basic building blocks used to create more complex operations when combined or used with other computations. If a future sensor or actuator uses an incompatible operation, then a firmware upgrade which would include the new microcode instructions would have to be developed in order to interface with it (assuming that it could be made to be hardware compatible with the port). The microcode instructions are made to be very generic, ensuring compatibility with as many sensors and actuators as we could find at the time of design.
 
-	The motherboard implements a number of functions that allow the libraries to utilise microcode instruction in the development of device libraries. These instructions are passed to the daughterboard where they are interpreted and executed. Listing ~\ref{code:micro} shows a few of the microcode instructions used in the \xten library and their related parameters.
+	The motherboard implements a number of functions that allow the libraries to utilize microcode instruction in the development of device libraries. These instructions are passed to the daughterboard where they are interpreted and executed. Figure ~\ref{code:micro} shows a few of the microcode instructions used in the \xten library and their related parameters.
 	
-\begin{listing}[h]
+\begin{figure}[h]
 \footnotesize
 {\fontsize{8}{6}\selectfont
 \begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Microcode Implementation}]{c}
@@ -226,8 +233,8 @@ int X10ABOT_MB::analog(byte db_address, byte port_number){
 
 \end{minted}
 }
-\caption{Example implementation of the \xten microcode instructions used in the device libraries.} \label{code:micro}
-\end{listing}	
+\caption{Example implementation of the \xten microcode instructions used in the device libraries} \label{code:micro}
+\end{figure}	
 
 
 	For every event on the daughterboard that is to be triggered, a microcode instruction is sent from the motherboard. The format of the instructions are as follows (see Table~\ref{tab:mc-structure}): The first four bits of the first byte define the instructions to be executed and the next four bits define the specific operation for that instruction. The second byte specifies the daughterboard address, the third byte uses its leftmost bit to determine whether it is addressing a sensor or actuator port. The next six bits on the third byte form the port number and the rightmost bit is used for the pin selection. Each transmitted instruction has a sequence number that is assigned to each microcode instruction. Some instructions require additional data to complete their operations. The microcode format provides a sequence of data bytes that can be of arbitrary length. It was created to be used in operations where a lot of data may be transmitted e.g RS-232. Table~\ref{tab:mc-structure} shows the structure of a typical microcode instruction.
@@ -251,30 +258,30 @@ int X10ABOT_MB::analog(byte db_address, byte port_number){
 	\end{table}
 	\normalsize
 	
-	In Listing~\ref{code:instr} it can be further observed how these microcode instructions are used to create operations for the generic Actuator class.
+	In Figure~\ref{code:instr} it can be further observed how these microcode instructions are used to create operations for the generic Actuator class.
 The code shows how microcode instructions are used to compose particular robotics instructions in the \xten architecture. Here the I/O method are named according to the pins (\textbf{A and B}) on which the instruction will be asserted. The case of each letter implies whether the pins will be set to HI or LO. The pwm instructions (\textbf{pwm\_a and pwm\_b}), named after the pwm pin which they assert, require the \textbf{power} parameter that is passed as an argument to the function.
 	
-    \begin{listing}
+    \begin{figure}
     \footnotesize
     {\fontsize{8}{6}\selectfont
     \begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Actuator Class Implementation}]{c}
 
-    void Actuator::ab(){
+    void Actuator::low_a_low_b(){
       actuator.digitalOut(LO,_db,_port,A);
       actuator.digitalOut(LO,_db,_port,B);
     }
 
-    void Actuator::aB(){
+    void Actuator::low_a_hi_b(){
       actuator.digitalOut(LO,_db,_port,A);
       actuator.digitalOut(HI,_db,_port,B);
     }
 
-    void Actuator::Ab(){
+    void Actuator::hi_a_low_b(){
       actuator.digitalOut(HI,_db,_port,A);
       actuator.digitalOut(LO,_db,_port,B);
     }
 
-    void Actuator::AB(){
+    void Actuator::hi_a_hi_b(){
       actuator.digitalOut(HI,_db,_port,A);
       actuator.digitalOut(HI,_db,_port,B);
     }
@@ -289,8 +296,8 @@ The code shows how microcode instructions are used to compose particular robotic
 
     \end{minted}
     }
-    \caption{Example of the Actuator class methods that uses microcode to represent general operations on an actuator.} \label{code:instr}
-    \end{listing}
+    \caption{Example of the Actuator class methods that uses microcode to represent general operations on an actuator} \label{code:instr}
+    \end{figure}
     
 	The purpose of the daughterboard is to interpret these high-level instructions from the motherboard and execute them on the respective sensor or actuator irrespective of the hardware specifics of the daughterboard. This ensures that high level language instructions sent from the motherboard remains platform independent.
 	
@@ -312,10 +319,10 @@ The code shows how microcode instructions are used to compose particular robotic
 	
 	To allow for easy extensibility and to support new hardware, the X10ABOT software architecture was designed to allow user extensible libraries. A library defines a set of microcode instructions used to control a hardware device.
 	
-	A new type of sensor or actuator can be supported by adding it as a device library on the the \xten motherboard. Creating a new device specification can be done without the need to understand any low level device specific coding, since all the configurations are abstracted for easier programming. Extensibility is therefore achieved through high-level abstraction of low level hardware components.
-    Listing~\ref{code:extlib} shows the code for a new temperature sensor (thermistor) library that was created to extend the \xten support for a new device. The thermistor required specialised manipulation of the analog value it received from the sensor to produce a useful value in Celsius or Fahrenheit.
+	A new type of sensor or actuator can be supported by adding it as a device library on the \xten motherboard. Creating a new device specification can be done without the need to understand any low level device specific coding, since all the configurations are abstracted for easier programming. Extensibility is therefore achieved through high-level abstraction of low level hardware components.
+    Figure~\ref{code:extlib} shows the code for a new temperature sensor (thermistor) library that was created to extend the \xten support for a new device. The thermistor required specialised manipulation of the analog value it received from the sensor to produce a useful value in Celsius or Fahrenheit.
     
-    \begin{listing}
+    \begin{figure}
     \footnotesize
     {\fontsize{8}{6}\selectfont
     \begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Actuator Class Implementation}]{c}
@@ -353,11 +360,11 @@ The code shows how microcode instructions are used to compose particular robotic
 
     \end{minted}
     }
-    \caption{Thermistor library showing how a sensor can be supported through the extensibility features of the \xten architecture.} \label{code:extlib}
-    \end{listing}
+    \caption{Thermistor library showing how a sensor can be supported through the extensibility features of the \xten architecture} \label{code:extlib}
+    \end{figure}
     
     
-	Both the hardware and software allow for inclusion of new and cutting edge technologies by utilising the simple idea of composition of low level microcode instructions. Many seemingly complex protocols or devices operate using only a few simple fundamental electronic operations defined by our microcode instructions. By creating a set of instructions that utilise these fundamental operations, any composite methods can be formed to complete most electronic tasks. For example: to operate an h-bridge, to control a DC motor, this requires a particular set of configurations of the digital I/O pins in their HI or LOW state, the configurations determine the operating mode: forward, reverse or stop. It may also require a pulse width modulation input to determine the motor's speed. These could be composed as a single library for the device. The \xten system architecture was designed to facilitate device libraries which operate in a similar sense as hardware drivers for computer peripherals. A driver typically communicates with the device through a communication subsystem to which the hardware connects.	
+	Both the hardware and software allow for inclusion of new and cutting edge technologies by utilising the simple idea of composition of low level microcode instructions. Many seemingly complex protocols or devices operate using only a few simple fundamental electronic operations defined by our microcode instructions. By creating a set of instructions that utilize these fundamental operations, any composite methods can be formed to complete most electronic tasks. For example: to operate an h-bridge, to control a DC motor, this requires a particular set of configurations of the digital I/O pins in their HI or LOW state, the configurations determine the operating mode: forward, reverse or stop. It may also require a pulse width modulation input to determine the motor's speed. These could be composed as a single library for the device. The \xten system architecture was designed to facilitate device libraries which operate in a similar sense as hardware drivers for computer peripherals. A driver typically communicates with the device through a communication subsystem to which the hardware connects.	
 	% subsubsection extending_the_library (end)
 	
 	%\subsubsection{Multitasking} % (fold)
@@ -368,7 +375,7 @@ The code shows how microcode instructions are used to compose particular robotic
 	
 	%\subsubsection{The X10ABOT LEGO VM} % (fold)
 	%\label{ssub:the_x10abot_lego_vm}
-	%There has been significant work toward the creation of a LEGO\textregistered  Mindstorms\textregistered  NXT virtual machine which will operate on top on the X10ABOT Library. User program code in the form of bytecode will be interpreted and executed with equivalent library commands. Many of the limitations in the hardware of the NXT are not enforced in its bytecode, therefore it may have the ability to utilise the extra sensors and actuator ports provided by the X10ABOT Library.
+	%There has been significant work toward the creation of a LEGO\textregistered  Mindstorms\textregistered  NXT virtual machine which will operate on top on the X10ABOT Library. User program code in the form of bytecode will be interpreted and executed with equivalent library commands. Many of the limitations in the hardware of the NXT are not enforced in its bytecode, therefore it may have the ability to utilize the extra sensors and actuator ports provided by the X10ABOT Library.
 	% subsubsection the_x10abot_lego_vm (end)
 	
 % subsection the_software_architecture (end)

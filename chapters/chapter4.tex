@@ -20,11 +20,11 @@ This chapter presents evidence showing how the \xten architecture achieves its o
  
 All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern microcontroller that supports \iic and the operations listed in in Table \textbf{\ref{tab:microcode}}.
 
-Listing~\textbf{\ref{code:example}} is a typical code setup for a very simple mobile robot illustrated in Figure \textbf{\ref{fig:singleboard}}. All the sensors and actuators were placed on one board; for this particular implementation, we utilised the \textbf{internal} daughterboard which is hosted on the same board as the motherboard. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor.
+Figure~\textbf{\ref{code:example}} is a typical code setup for a very simple mobile robot illustrated in Figure \textbf{\ref{fig:singleboard}}. All the sensors and actuators were placed on one board; for this particular implementation, we utilized the \textbf{internal} daughterboard which is hosted on the same board as the motherboard. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor.
 
 
 %\begin{multicols}{2}
-	\begin{listing}
+	\begin{figure}
 		\footnotesize
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={\xten Sample code}]{c}
 
@@ -47,31 +47,31 @@ void setup(){}
 void loop(){
 //Continuously check the sensors for a reading
   if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
-    motor1.aB(); //Turn motor1 on by sending LO on pin a and HI on pin B
+    motor1.low_a_hi_b(); //Turn motor1 on by sending LO on pin a and HI on pin B
     motor1.pwm_a(100); //operate motor1 at full power (100%) 
   }else{
-    motor1.ab();//Turn motor1 off by sending LO on pin a and pin b
+    motor1.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
   }
 }	 
 	\end{minted}
-		\caption{Example of the \xten architecture on a simple - single board robot.} \label{code:example}
-	\end{listing}
+		\caption{Example of the \xten architecture on a simple - single board robot} \label{code:example}
+	\end{figure}
 %	\vfill
 %	\columnbreak
 
 
 
-Listing~\textbf{\ref{code:example}} is a simple program that drives the motor at full speed if either the touch sensor records an input or if there is a force on the force sensor above a certain threshold, otherwise the motor will be given the off signal.
+Figure~\textbf{\ref{code:example}} is a simple program that drives the motor at full speed if either the touch sensor records an input or if there is a force on the force sensor above a certain threshold, otherwise the motor will be given the off signal.
 
 %\end{multicols}
-In this instance, there are two types of devices that are declared, \textbf{Sensor} and \textbf{Actuator}. These represent the parent classes of all sensors and actuators respectively in the \xten architecture. This example utilises the parent class but for more complex sensors and actuators, a subclass would have been appropriate. All other sensor and actuator sub-types inherit from these two classes of devices, overriding where necessary.
+In this instance, there are two types of devices that are declared, \textbf{Sensor} and \textbf{Actuator}. These represent the parent classes of all sensors and actuators respectively in the \xten architecture. This example utilizes the parent class but for more complex sensors and actuators, a subclass would have been appropriate. All other sensor and actuator sub-types inherit from these two classes of devices, overriding where necessary.
 
 It should be noted that it was necessary to include the library for both the motherboard and the daughterboard since they share the same Arduino board. Daughterboard address \#0 or the constant \textbf{SELF} is reserved for the internal daughterboard on the same physical Arduino platform.
 
 	\section{Modularity} % (fold)
 	\label{sec:modularity}
 % section modularity (end)
-Adding an extra capability was easily and seamlessly carried out using the \xten architecture. We included an extra daughterboard that represented a complete subsystem using sensors and actuators. In our example in Figure \textbf{\ref{fig:modularity}}, an extra DC motor and a light sensor were added as a single module. The \xten architecture allowed for this new addition as a daughterboard via the peripheral bus. The module was just as easily added in software. The daughterboard was assigned a unique arbitrary address of \textbf{\#9}. Instructions were then added to activate the new DC motor if there was light intensity above a certain threshold on the sensor. We could have easily controlled the existing motor or mixed the logic between the existing components, however for clarity we made it so that the modules would operate independently.  In the Listing~\ref{code:modularity}, we demonstrate how we added this extra functionality.
+Adding an extra capability was easily and seamlessly carried out using the \xten architecture. We included an extra daughterboard that represented a complete subsystem using sensors and actuators. In our example in Figure \textbf{\ref{fig:modularity}}, an extra DC motor and a light sensor were added as a single module. The \xten architecture allowed for this new addition as a daughterboard via the peripheral bus. The module was just as easily added in software. The daughterboard was assigned a unique arbitrary address of \textbf{\#9}. Instructions were then added to activate the new DC motor if there was light intensity above a certain threshold on the sensor. We could have easily controlled the existing motor or mixed the logic between the existing components, however for clarity we made it so that the modules would operate independently.  In the Figure~\ref{code:modularity}, we demonstrate how we added this extra functionality.
 
 \begin{figure}[h!]
   \begin{center}
@@ -80,10 +80,10 @@ Adding an extra capability was easily and seamlessly carried out using the \xten
   \end{center}
 \end{figure}
 
-\begin{listing}
+\begin{figure}
 		\footnotesize
         {\fontsize{8}{6}\selectfont
-		\caption{Example of code modularity (the code components were separated to emphasise modularity). Highlighted region indicates the code added for the new module} \label{code:modularity}
+		
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Modularity in Code}]{c}
         \end{minted}
         \begin{minted}[bgcolor=bg,baselinestretch=1]{c}
@@ -106,10 +106,10 @@ void setup(){}
 void loop(){
 //Continuously check the sensors for a reading
 if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
-    motor1.aB(); //Turn motor1 on by sending LO on pin a and HI on pin B
+    motor1.low_a_hi_b(); //Turn motor1 on by sending LO on pin a and HI on pin B
     motor1.pwm_a(100); //operate motor1 at full power (100%) 
   }else{
-    motor1.ab();//Turn motor1 off by sending LO on pin a and pin b
+    motor1.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
   }
  \end{minted}
  \begin{minted}[bgcolor=hilite,baselinestretch=1]{c}
@@ -123,16 +123,17 @@ if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
 //on daughterboard #9 while light is on the sensor, activate motor2
 if (lightSensor.readAnalog()>700)
   {
-    motor2.Ab(); //Turn motor2 on by sending HI on pin A and LO on pin b
+    motor2.hi_a_low_b(); //Turn motor2 on by sending HI on pin A and LO on pin b
     motor2.pwm_a(50); //operate motor2 at half power (50%)
   }else{
-    motor2.ab();//Turn motor1 off by sending LO on pin a and pin b
+    motor2.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
   }
 }	 
 	\end{minted}
 		}
-\end{listing}
-Listing \textbf{\ref{code:modularity}} shows, that even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
+    \caption{Example of code modularity (the code components were separated to emphasise modularity). Highlighted region indicates the code added for the new module} \label{code:modularity}
+\end{figure}
+Figure \textbf{\ref{code:modularity}} shows, that even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process. Separate code was added to carry out their operation which never needed to interact with the existing system. There needed to be no special accommodation for the new module in the existing code. There was no significant modification made to the existing hardware setup even with the fact that an extra physical component, another daughterboard, was added to the system. The \xten design allowed a pluggable interface that facilitated adding new code and hardware with minimal modification to the existing setup.
 All these features are an indication of a truly modular architecture. As previously defined, we included an entire subsystem without modifying the existing components. The modules can be removed just as easily as they were installed. The level of expertise, with regard to specialised knowledge required to modify this system is also relatively minimal when compared to  the same Arduino platform without the abstraction of the \xten framework.
 
 \newpage
@@ -141,10 +142,10 @@ All these features are an indication of a truly modular architecture. As previou
 \label{sec:extensibility_abstraction}
 We demonstrate the \xten architecture's ability to support new and varied types of sensors and actuators. This is accomplished by creating a subclass to either of the existing Sensor or Actuator classes. These parent classes support all the generic operations on all the available sensor and actuator ports. By creating a subclass, all the parent class properties and functions will be inherited. Devices with unique configurations can be supported by utilising the same abstracted daughterboard access available to the parent classes requiring no knowledge of the low-level details of the hardware.
 In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both celsius and fahrenheit units. This code was originally sourced from the Arduino Playground~\parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
-\begin{listing}
+\begin{figure}
 		\footnotesize
         {\fontsize{8}{6}\selectfont
-		\caption{Example: A complete library for a thermistor temperature sensor. The highlighted region indicates where the \xten microcode was added.} \label{code:therm}
+		
 		\begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Thermistor Library}]{c}
 #include "../X10ABOT_MB.h"
 #include <math.h>
@@ -178,17 +179,18 @@ class Thermistor: public Sensor
 };
 	\end{minted}
 		}
-\end{listing}
+    \caption{Example: A complete library for a thermistor temperature sensor. The highlighted region indicates where the \xten microcode was added} \label{code:therm}
+\end{figure}
 
-The conversion instructions of the \xten library in Listing \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analog pin to read the raw data value acquired from the sensor. These functions are at the the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analog pin. The raw analog value is then returned to the calling function where it is further processed.
+The conversion instructions of the \xten library in Figure \textbf{\ref{code:therm} }is an almost exact replica of the fragment of code extracted from the Arduino Thermistor library. In the \textbf{readThermistorCelsius} function, the main change (highlighted in yellow) can be found where the code accesses the analog pin to read the raw data value acquired from the sensor. These functions are at the lowest level of abstraction and are used to read and write to the individual pins of each port. They include \emph{digitalIn, digitalOut, pwm and analog.} For this particular case, the \textbf{analog(\_db,\_port)} microcode function was invoked, access to this function was inherited by extending the Sensor class. This is a method used to abstract sensor port's analog pin so that it becomes hardware independent. The sensor port (\textbf{\_port}) belongs on a daughterboard (\textbf{\_db})where it accesses the data from the  analog pin. The raw analog value is then returned to the calling function where it is further processed.
 
-This thermistor library can then be easily utilised by the user as follows (See Listing \ref{code:thermcode}):
+This thermistor library can then be easily utilized by the user as follows (See Figure \ref{code:thermcode}):
 
-The code in Listing~\textbf{\ref{code:thermcode}} presents a temperature monitoring system that watches the temperature that it receives from two thermistors. If the value read from the thermistors goes beyond particular thresholds for either of them, an alarm is triggered.
-\begin{listing}
+The code in Figure~\textbf{\ref{code:thermcode}} presents a temperature monitoring system that watches the temperature that it receives from two thermistors. If the value read from the thermistors goes beyond particular thresholds for either of them, an alarm is triggered.
+\begin{figure}
 		\footnotesize
         {\fontsize{8}{6}\selectfont
-		\caption{Example application of the thermistor temperature sensor library.} \label{code:thermcode}
+		
 		\begin{minted}[bgcolor=bg,frame=lines,baselinestretch=1,framesep=2mm,label={Thermistor Example Application}]{c}
 #include <Wire.h>  
 #include "x10sions/Thermistor.h"
@@ -214,10 +216,11 @@ void loop(){
 }
 	\end{minted}
 		}
-\end{listing}
+    \caption{Example application of the thermistor temperature sensor library} \label{code:thermcode}
+\end{figure}
 
-A typical end user would not be involved in creating libraries for sensors. They would have only been exposed to the setup in Listing~\ref{code:thermcode}. The only requisite knowledge would be familiarity with the supported list of functions specified for a thermistor. In this case only \textbf{readThermistorFarenheit()} and  \textbf{readThermistorCelsius()} are specified and both have been used.
-The library for a thermistor was included and it became very straightforward to utilise the sensor readings afterwards.
+A typical end user would not be involved in creating libraries for sensors. They would have only been exposed to the setup in Figure~\ref{code:thermcode}. The only requisite knowledge would be familiarity with the supported list of functions specified for a thermistor. In this case only \textbf{readThermistorFarenheit()} and  \textbf{readThermistorCelsius()} are specified and both have been used.
+The library for a thermistor was included and it became very straightforward to utilize the sensor readings afterwards.
 % section extensibility and abstraction (end)
 \newpage
 \section{Scalability} % (fold)
@@ -244,7 +247,7 @@ $$
 \textbf{The tables below display the result of our timing experiment: }
 
 \begin{table}[h!]
-	\caption{Table showing instruction latency in microseconds($\mu$s) for a regular Arduino using a sample of 20 consecutive executions.}\label{table:arduinoboard}
+	\caption{Table showing instruction latency in microseconds($\mu$s) for a regular Arduino using a sample of 20 consecutive executions}\label{table:arduinoboard}
 	\begin{tabular}{|l|l|l|l|l|}
 	\toprule
  \multicolumn{5}{c}{\textbf{Direct Arduino Board readings}} \\\hline
@@ -270,7 +273,7 @@ Standard Deviation:     & 2.01 & 2.21  & 0.89  & 3.41 \\\hline
 %s = 3.41
 
 \begin{table}[!ht]
-	\caption{Table showing microcode instruction latency in microseconds($\mu$s) for the the on-board daughterboard using a sample of 20 consecutive executions.}\label{table:onboard}
+	\caption{Table showing microcode instruction latency in microseconds($\mu$s) for the on-board daughterboard using a sample of 20 consecutive executions}\label{table:onboard}
 	\begin{tabular}{|l|l|l|l|l|}
 	\toprule
  \multicolumn{5}{c}{\textbf{One Board \xten readings}} \\\hline
@@ -296,7 +299,7 @@ Standard Deviation:     & 2.15 & 2.27  & 4.17  & 2.95 \\\hline
 %s = 2.95
 
 \begin{table}[!ht]
-	\caption{Table showing microcode latency in microseconds($\mu$s) for a daughterboard connected over the peripheral bus using a sample of 20 consecutive executions.}\label{table:offboard}
+	\caption{Table showing microcode latency in microseconds($\mu$s) for a daughterboard connected over the peripheral bus using a sample of 20 consecutive executions}\label{table:offboard}
 	\begin{tabular}{|l|l|l|l|l|}
 	\toprule
  \multicolumn{5}{c}{\textbf{Two Board \xten readings}} \\\hline
@@ -332,5 +335,5 @@ We calculated the standard deviation and presented the data ranges for up to thr
 
 We also presented a comparative analysis of the Arduino with and without the \xten system. We observed that the all readings on all platforms fell below the 1 millisecond mark. For most school based or hobbyist projects, this falls within an acceptable range.
 
-The results emphasised that the advantages of \xten platform are more pronounced when it has to manipulate devices across multiple daughterboards. There are tradeoffs in performance which had to be sacrificed to accomplish this but it allowed the the framework to achieve its goals of being modular, scalable and extensible.
+The results emphasised that the advantages of \xten platform are more pronounced when it has to manipulate devices across multiple daughterboards. There are tradeoffs in performance which had to be sacrificed to accomplish this but it allowed the framework to achieve its goals of being modular, scalable and extensible.
 % section economy (end)
