@@ -2,7 +2,37 @@
 \label{cha:the_x10abot_architecture_design_and_implementation}
 
 
-In this chapter we describe how we used the design strategies that were introduced in the background chapter. We extracted the most compelling features and combined them to crate a modular system with the following components comprising the \xten architecture:
+%%%%----------------------------------------------------
+
+
+
+
+
+%We modelled our sensor and actuator ports after a similar design, we also took note of the software architecture and structured the \xten to be able to facilitate a virtual machine type plugin that can interpret the Lego NXT bytecode. We started work on this but realised that the magnitude of effort required was beyond the scope of this thesis. This bytecode interpreter was not complete but if this direction is pursued, integration should not be too difficult.
+
+The Hannibal project greatly influenced the use of an \iic peripheral bus as the central communication line on a distributed system of robotic components. This seemed to have aided in the management of a large number of sensors and actuators.
+
+These examples influenced and validated some of our design decisions for the components of the \xten architecture. We chose a combination of the best features of these technologies which we found to improve modularity, scalability and extensibility and combined them to construct our framework. These features include an \iic powered peripheral bus, separate modules to manage additional sensors and actuators, a middleware architecture, full featured sensor and actuator ports, just to name a few.
+
+These are just a few of the design decisions made to satisfy our requirement of a modular architecture. 
+
+The peripheral bus that we selected supports up to 112 modules that can facilitate advanced robotics projects.
+Another requirement of the peripheral bus is high bandwidth that will be able to accommodate the possibility of a large number of active peripherals in a single session. We designed peripheral boards (that we named daughterboards) to support sensors and actuators, these daughterboards are connected to the main controller over a fast, addressable serial peripheral bus. The daughterboards interact with the main controller board through a master-slave relationship. In our implementation, there exists just two types of components, the motherboard and daughterboards. Both type of modules have processors designated for their particular tasks.
+
+ We needed a robust architecture that provided more than just an increase in connection points for sensors and actuators. It is critically important that there is adequate hardware and software support for the increase in additional devices.
+
+ Our scalable architecture took these requirements into consideration. We do not integrate power as a part of the peripheral bus, each daughterboard is independently powered and the ports are designed to allow for each connected device on the daughterboard to use their own isolated power source.
+
+ Our system was designed to support as many types of sensors and actuators as possible. To achieve this, we had to find a common denominator for all sensors and actuators. Sensors and actuators have many requisite hardware technologies that need to be supported. We realised that these technologies were subsets or a combination of a finite set of operations. Technologies such as pulse width modulation, hardware interrupts, digital input/output and analog input are just some of the basic ones used by most sensors and actuators. We determined that if we could define this complete set of hardware operations, we could control most if not all sensors and actuators. This would allow extensibility to currently existing and possibly new types of sensors and actuators.
+
+ With a proper shield built on an Arduino running the \xten software, a comparable kit with respect to the number of ports for sensors and actuators would cost no more than \$30 USD.
+
+ The Mindstorms kit is a polished product with a lot of additional features that far surpass the \xten, however the \xten has far better scalability, modularity and extensibility at a significantly lower price point. These features are not easily attained with a simple Arduino kit, the framework transforms the lowly Arduino into a capable robotics platform.
+
+%%%%----------------------------------------------------
+
+
+In this chapter we describe how we used the design strategies that were introduced in chapter 2. We extracted the most compelling features and combined them to create a modular system with the following components comprising the \xten architecture:
 \begin{enumerate}
 \item The Motherboard
 \item The Daughterboard
@@ -18,13 +48,13 @@ In this chapter we describe how we used the design strategies that were introduc
 % Chapter 3
 
 %%Impact or influence of the design decisions and how they were implemented
-The \xten 's main architectural features that were decided on were modularity, scalability and extensibility. It was also important that we kept the cost of implementation relatively inexpensive. These attributes represented common design patterns observed over a number of robotics projects, either for custom robots or as a part of the architecture for general purpose robotics kits. We designed a system comprised of components that realise one or more of the design requirements.
+The main architectural features that were decided on for the \xten framework's design were modularity, scalability and extensibility. It was also important that we kept the cost of implementation relatively inexpensive. These attributes represented common design patterns observed over a number of robotics projects, either for custom robots or as a part of the architecture for general purpose robotics kits. We designed a system comprised of components that realise one or more of the design requirements.
 
 %User friendly:  Usable primary school to  graduate level roboticists
 \newpage
 \section{The Architecture} % (fold)
 \label{sec:the_architecture}
-Based on the design requirements listed in the previous chapter, we created an architecture that captured all the previously listed features without making any significant compromise on any of those aspects. The \xten architecture implements previously outlined requirements at both the hardware and software level. It is comprised of a motherboard which is the main central controller. The motherboard is also the head of a distributed system of peripheral sensor and actuator boards called daughterboards. The daughterboards carry out a standard set of computations synonymous to a thin client, all connected across the central peripheral bus. The motherboard coordinates and controls all operations on the entire system and all operations are either initiated or terminated at the motherboard, except in the special instance when a daughterboard temporarily takes on the role of a motherboard for interrupt management. The motherboard hosts the main program for the robot application, the middleware and the extensible libraries to support various types of sensors and actuators. Each daughterboard is equipped with firmware to interpret and execute instructions given to it by the motherboard. Each daughterboard also provides multi-faceted sensor and actuator ports that can support a broad range of sensors and actuators. 
+Based on the design requirements listed above, we created an architecture that captured all the previously listed features without making any significant compromise on any. The \xten architecture implements previously outlined requirements at both the hardware and software level. It is comprised of a motherboard which is the main central controller. The motherboard is also the head of a distributed system of peripheral sensor and actuator boards called daughterboards. The daughterboards carry out a standard set of computations synonymous to a thin client, all connected across the central peripheral bus. The motherboard coordinates and controls all operations on the entire system and all operations are either initiated or terminated at the motherboard, except in the special instance when a daughterboard temporarily takes on the role of a motherboard for interrupt management. The motherboard hosts the main program for the robot application, the middleware and the extensible libraries to support various types of sensors and actuators. Each daughterboard is equipped with firmware to interpret and execute instructions given to it by the motherboard. Each daughterboard also provides multi-faceted sensor and actuator ports that can support a broad range of sensors and actuators. 
 
 \begin{figure}[h]
   \begin{center}
@@ -56,10 +86,10 @@ The motherboard acts as the head of the distributed system of peripheral boards.
 	  \end{center}
 	\end{figure}
 	
-	The Peripheral Bus is the central medium that connects the motherboard to one or more daughterboards and facilitates the communication of data and instructions between them. The peripheral bus is implemented using the \iic serial communication protocol. \iic is a multi-master, addressable slave, two wire bus serial protocol. It supports up to 112 uniquely addressable devices per bus (128 minus 16 reserved addresses), 8-bit oriented, bidirectional data transfers can be made at 100 Kbits/s in the Standard-mode, 400 Kbits/s in the Fast-mode, 1 Mbits/s in Fast-mode Plus, or up to 3.4 Mbits/s in the High-speed mode ~\parencite{edubots, i2cfaq}. While operating in its standard-mode, the I2C bus can be as long as 9 - 12 feet without any significant noise interference ~\parencite{hannibal}. This distance is quite sufficient for a robotics kit where the peripherals are not usually more than 3 feet away from the controller circuit. As such, \iic provides a low-cost solution for interconnecting large numbers of devices operating at relatively slow speeds, such as sensors or other external devices connected to a microcontroller. A number of robotics projects implement this method of data communication, including the popular NXT LEGO Mindstorms Kit, ISocRob, and the Hannibal hexapod autonomous robot~\parencite{hannibal, Ventura}.
+	The Peripheral Bus is the central medium that connects the motherboard to one or more daughterboards and facilitates the communication of data and instructions between them. The peripheral bus is implemented using the \iic serial communication protocol. 
 	
 	% subsubsection the_peripheral_bus (end)
-	All communication on the \iic bus is initiated by the bus master or, as in our case, the motherboard. This is not suitable in all situations, e.g.: when a sensor detects an input that needs to be processed immediately. Even if all the daughterboards are periodically polled, the elapsed time may cause the sensor data to become invalid or ineffective. That is why we utilized the multi-master capability of the \iic peripheral bus to accomplish arbitration. \iic inherently supports collision detection and bus arbitration, bus arbitration refers to a portion of the protocol that ensures that when multiple masters try to control the bus simultaneously, it allows only one master full control of the bus while queuing the prospective master without any corruption or dataloss~\parencite{nxpi2c}. The motherboard has primary control over the peripheral bus but can give up the control to any daughterboard that wants to gain temporary bus-master status. 
+	All communication on the \iic bus is initiated by the bus master or, as in our case, the motherboard. This is not suitable in all situations, e.g.: when a sensor detects an input that needs to be processed immediately. Even if all the daughterboards are periodically polled, the elapsed time may cause the sensor data to become invalid or ineffective. That is why we utilized the multi-master capability of the \iic peripheral bus to accomplish arbitration. The motherboard has primary control over the peripheral bus but can give up the control to any daughterboard that wants to gain temporary bus-master status. 
 
 	Bus arbitration by the daughterboard is trivial and is accomplished by simply importing both the functionality for the motherboard and daughterboard. Each daughterboard would then have to know the motherboard's \iic address and make the same function calls a motherboard would for the purpose of sending data when it is ready to transmit.
 	
@@ -100,9 +130,9 @@ The motherboard acts as the head of the distributed system of peripheral boards.
   \end{center}
 \end{figure}
 
- A sensor port is comprised of five(5) pins: power and ground, an analog input, and two digital I/O pins. The analog input pin is able to read voltages from analog sensors e.g. touch, light and sound sensors. The digital I/O pins can support active and passive digital sensors such as ultrasonic rangefinders,  passive infrared(PIR) sensors and Radio-frequency identification(RFID) sensors. The power and ground pins provide electrically isolated power for the sensors (typically 5 volts, but in principle it could be different from the microcontroller's voltage requirements).
+ A sensor port is comprised of five(5) pins: power and ground, an analog input, and two digital I/O pins. The analog input pin is able to read voltages from analog sensors e.g. touch, light and sound sensors. The digital I/O pins can support active and passive digital sensors such as ultrasonic range-finders,  passive infrared(PIR) sensors and Radio-frequency identification(RFID) sensors. The power and ground pins provide electrically isolated power for the sensors (typically 5 volts, but in principle the power could be different from the microcontroller's voltage requirements).
 
-An actuator port is comprised of 6 pins: power and ground, two (2) Pulse Width Modulation (PWM) output pins and two (2) digital I/O pins. The PWM signals allow support for servo motors as well as for adjusting power levels on output devices. The digital I/O pins are able to drive dc motor H-bridges or to be read as digital encoder signals. Like the sensor ports, the power supply for output ports is also electrically isolated from that of the microcontroller. This is particularly necessary when powering motors to prevent damage to the controller and other electronics.
+An actuator port is comprised of 6 pins: power and ground, two (2) Pulse Width Modulation (PWM) output pins and two (2) digital I/O pins. The PWM signals allow support for servo motors as well as for adjusting power levels on output devices. The digital I/O pins are able to drive DC motor H-bridges or to be read as digital encoder signals. Like the sensor ports, the power supply for output ports is also electrically isolated from that of the microcontroller. This is particularly necessary when powering motors to prevent damage to the controller and other electronics.
 
 A power bus runs through each daughterboard, connecting all the power pins of its ports. This power bus is meant to supply an alternate power source to the attached sensors and actuators. This alternate power source may or may not be suitable for powering the internal circuitry on the daughterboard, therefore, it is properly isolated. A hardware implementation of the power bus can include a jumper device to switch the power source from the basic 5V supply provided by the system to an external supply at the power specification of the sensor or actuator. The power bus terminates as connectors on either side of the board. This facilitates daisy chaining the power across the daughterboards, or if necessary, providing separate power supplies for individual modules. The scalability of the \xten architecture is more likely to be limited primarily by power considerations than by controlling software or the number of available ports.
 	% subsubsection input_&_output_ports (end)
@@ -118,7 +148,7 @@ The \xten hardware is managed by software distributed across both the motherboar
 	\label{ssub:the_motherboard_library}
 
 	
-	The motherboard robotics library is a toolchain of functions written specifically for robotics applications. We defined and developed an extensible library of useful robotics operations for common devices and general sensors and actuators. They can be composed to control the behaviour of a robot. Our particular implementation made use of the Arduino platform which supports the addition of third-party libraries. This allows for robotics developers to take advantage of the usability of the Arduino development platform while capitalising on the usefulness of a robotics-specific set of operations implemented in the library.
+	The motherboard robotics library is a tool-chain of functions written specifically for robotics applications. We defined and developed an extensible library of useful robotics operations for common devices and general sensors and actuators. They can be composed to control the behaviour of a robot. Our particular implementation made use of the Arduino platform which supports the addition of third-party libraries. This allows for robotics developers to take advantage of the usability of the Arduino development platform while capitalising on the usefulness of a robotics-specific set of operations implemented in the library.
 The library was designed not only to provide common robotics functionality to its users but to also make programming large robots with many sensors and actuators less of a hassle especially when taking advantage of the scalability and modularity of the entire platform.
 
 	\begin{figure}[h]
@@ -142,20 +172,45 @@ The library was designed not only to provide common robotics functionality to it
 	
 	\subsubsection{The Daughterboard Firmware} % (fold)
 	\label{ssub:the_daughterboard_firmware}
-	The daughterboard firmware allows it to provide a standard interface from all daughterboards to their motherboard. All instructions to control or access sensors and actuators are communicated to it via the peripheral bus. These instructions are written as microcode abstractions of the hardware and need to be translated to actual assertions on the devices. Each abstracted command in the motherboard's \xten Library is translated into one or more microcode hardware instructions. Microcode instructions are carried out sequentially by the daughterboards to manipulate the physical hardware components that are attached to their ports. The microcode instructions define a universal set of hardware operations. When these are put together, they can control most typical robotics sensors or actuators.
+	The daughterboard firmware provides a standard interface from all daughterboards to their motherboard. All instructions to control or access sensors and actuators are communicated to it via the peripheral bus. These instructions are written as microcode abstractions of the hardware and need to be translated to actual assertions on the devices. Each abstracted command in the motherboard's \xten Library is translated into one or more microcode hardware instructions. Microcode instructions are carried out sequentially by the daughterboards to manipulate the physical hardware components that are attached to their ports. The microcode instructions define a universal set of hardware operations. When these are put together, they can control most typical robotics sensors or actuators.
 		The microcode instructions specified for daughterboards, provide different means of interacting with each port (see Table~\ref{tab:microcode}).
-	The firmware on the daughterboards will interpret these instructions and execute hardware procedures. These instructions are asserted to the standard sensor and actuator ports which are composed of pins, each with their specific purpose. Sensors and actuators are connected to their respective ports and respond to the assertions placed upon them by the daughterboard.
+	The firmware on the daughterboards will interpret these instructions and execute hardware procedures. These instructions are asserted to the standard sensor and actuator ports which are composed of pins, each with their specific purpose. Sensors and actuators are connected to their respective ports and respond to the assertions placed upon them by the daughterboard. Figure ~\ref{fig:sequence} shows a sequence diagram outlining the process from initializing an actuator in code to asserting a digital operation on the actuator.
+
+    \begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=1.0\columnwidth]{Figures/sequence.pdf}
+    \caption{The components of the \xten Architecture}
+    \label{fig:sequence}
+  \end{center}
+\end{figure}
+
+
+%   	
+%digitalOut  	state, db_address, port_number, pin_select
+%digitalIn 	db_address, port_number, pin_select
+%pwm		pwm_select, db_address, port_number, duty_cycle
+%analog		db_address, port_number
 	
 	\begin{table}[h] 
         \centering
-          \scriptsize {%            
+          \scriptsize {%         
+            
 	      \begin{tabular}{|l|l|l|}
-            \toprule
-	        \multicolumn{3}{c}{\textbf{Microcode Instructions}} \\\hline
-            \textbf{Category} & \textbf{Input/Output} & \textbf{Data}\\\hline
-            Digital I/O  & Read/Write & HIGH/LOW \\\hline
-            Analog & Read & n/a \\\hline
-            PWM & Write & Frequency and Duty Cycle \\\hline
+	      	\hline
+	      	\textbf{Commands} &  \multicolumn{2}{l|}{\textbf{Parameters}}\\\hline
+	      	digitalOut & \multicolumn{2}{l|}{state, db\_address, port\_number, pin\_select}\\\hline
+			digitalIn & \multicolumn{2}{l|}{db\_address, port\_number, pin\_select}\\\hline
+			pwm & \multicolumn{2}{l|}{pwm\_select, db\_address, port\_number, duty\_cycle}\\\hline
+			analog & \multicolumn{2}{l|}{db\_address, port\_number}\\\hline
+			\toprule 
+	        \multicolumn{3}{c}{\textbf{Parameter Definitions}} \\\hline
+            \textbf{Format} & \textbf{Name} & \textbf{Description}\\\hline
+			byte & state & The state of the digital pin, HIGH(2), LOW(1), INPUT(0) \\\hline
+			byte  & db\_address & The daughterboard address between 7 and 120, 0 for internal \\\hline
+			byte  & port\_number & The daughter board's port number connected to the device \\\hline
+			byte  & pin\_select & Choose which of the I/O pins on the port to use A(0) or B(1) \\\hline
+			byte  & pwm\_select & Choose which of the PWM pins on the port to use A(0) or B(1) \\\hline
+			byte  & duty\_cycle & Specify the duty cycle as a number between 0 and 255 \\\hline
            % \multicolumn{3}{c}{Unimplemented Features} \\\hline
             %I$^{2}$C & Read/Write & Serial Data \\\hline 
             %RS-232 & Read/Write & Serial Data \\\hline 
@@ -164,12 +219,12 @@ The library was designed not only to provide common robotics functionality to it
             \end{tabular} 
             }
 	  \caption{The complete set of hardware operations supported by the
-	    microcode interface to the daughterboards}% as well as a few planned features}
+	    microcode interface to the daughterboards. These basic commands are the building blocks of all operations sent between the motherboard and daughterboard.
 	  \label{tab:microcode}
 	\end{table}
 	\normalsize
 	
- The current microcode instructions include analog, digital and PWM and are the basic building blocks used to create more complex operations when combined or used with other computations. If a future sensor or actuator uses an incompatible operation, then a firmware upgrade which would include the new microcode instructions would have to be developed in order to interface with it (assuming that it could be made to be hardware compatible with the port). The microcode instructions are made to be very generic, ensuring compatibility with as many sensors and actuators as we could find at the time of design.
+ The current microcode instructions include analog, digital and PWM and are the basic building blocks used to create more complex operations when combined or used with other computations. If a future sensor or actuator uses an incompatible operation, then a firmware upgrade which would include the new microcode instructions would have to be developed in order to interface with the new device (assuming that it could be made to be hardware compatible with the port). The microcode instructions are made to be very generic, ensuring compatibility with as many sensors and actuators as we could find at the time of design.
 
 	The motherboard implements a number of functions that allow the libraries to utilize microcode instruction in the development of device libraries. These instructions are passed to the daughterboard where they are interpreted and executed. Figure ~\ref{code:micro} shows a few of the microcode instructions used in the \xten library and their related parameters.
 	
@@ -259,33 +314,25 @@ int X10ABOT_MB::analog(byte db_address, byte port_number){
 	\normalsize
 	
 	In Figure~\ref{code:instr} it can be further observed how these microcode instructions are used to create operations for the generic Actuator class.
-The code shows how microcode instructions are used to compose particular robotics instructions in the \xten architecture. Here the I/O method are named according to the pins (\textbf{A and B}) on which the instruction will be asserted. The case of each letter implies whether the pins will be set to HI or LO. The pwm instructions (\textbf{pwm\_a and pwm\_b}), named after the pwm pin which they assert, require the \textbf{power} parameter that is passed as an argument to the function.
+The code shows how microcode instructions are used to compose particular robotics instructions in the \xten architecture. Here the I/O method accept HI and LO values according to the pins (\textbf{A and B}) on which the instruction will be asserted. The pwm instructions (\textbf{pwm\_a and pwm\_b}), named after the pwm pin which they assert, require the \textbf{power} parameter that is passed as an argument to the function.
 	
     \begin{figure}
     \footnotesize
     {\fontsize{8}{6}\selectfont
     \begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Actuator Class Implementation}]{c}
 
-    void Actuator::low_a_low_b(){
-      actuator.digitalOut(LO,_db,_port,A);
-      actuator.digitalOut(LO,_db,_port,B);
+    
+    /*
+    * Sets digital pin values to High or Low
+    */
+    void Actuator::setDigital(byte pin_a, byte pin_b){
+      actuator.digitalOut(pin_a,_db,_port,A);
+      actuator.digitalOut(pin_b,_db,_port,B);
     }
 
-    void Actuator::low_a_hi_b(){
-      actuator.digitalOut(LO,_db,_port,A);
-      actuator.digitalOut(HI,_db,_port,B);
-    }
-
-    void Actuator::hi_a_low_b(){
-      actuator.digitalOut(HI,_db,_port,A);
-      actuator.digitalOut(LO,_db,_port,B);
-    }
-
-    void Actuator::hi_a_hi_b(){
-      actuator.digitalOut(HI,_db,_port,A);
-      actuator.digitalOut(HI,_db,_port,B);
-    }
-
+    /*
+    * Sets analog pin to a value between 0 and 100
+    */
     void Actuator::pwm_a(byte power){
       actuator.pwm(A, _db, _port, 255*power/100);
     }
@@ -305,11 +352,115 @@ The code shows how microcode instructions are used to compose particular robotic
 	% subsubsection the_daughterboard_firmware (end)
 	
 	\subsubsection{Middleware} % (fold)
-	\label{ssub:middleware}
-	Bakken et al.~\parencite{bakken2001middleware} defined middleware as follows: ``a class of software technologies designed to help manage the complexity and heterogeneity inherent in distributed systems. It is defined as a layer of software above the operating system but below the application program that provides a common programming abstraction across a distributed system.'' The portion of the \xten software architecture that performs the role of middleware does so by providing the motherboard with a level of abstraction and seamless communication with the daughterboards. The middleware handles communication between devices without exposing the details of the protocol or its requirements and the details of the systems hardware on either end. In fact the middleware is used to determine what type of communication medium and protocol is appropriate and creates a standard platform independent interface for interaction. In other words, the middleware just simply presents a standard interface that communicates data and instructions between the motherboard and daughterboard.
-	In a review of popular robotics middleware, Kramer~\parencite{kramer} cites some major advantages of using middleware that are applicable to the \xten architecture. He states that it aids in software modularity, which is an intentional design objective. The middleware allows for pluggable libraries at the motherboard level which are ignorant of the actual hardware implementations. This accomplishes the platform independence, and portability that Kramer found to be a common attribute of most robotics middleware.
+	\label{ssub:middleware2}
+
+	A middleware architecture is used to hide the low-level details of the communication interface between the components that make up a distributed robotics system. This level of abstraction allows for an interface between the main controller and the sensors and actuators which supports a high level definition of their operations. 
 	
 	The aspect of the \xten architecture that transports the microcode from the libraries of the motherboard to the interpreter of the daughterboard is considered to be our middleware. Each microcode instruction formats the byte string as described in Table ~\ref{tab:mc-structure}. The microcode then performs one or more of a series of dispatch and request events between the motherboard and the daughterboard. The daughterboard also initiates data transfers as well for certain special cases. All these operations are managed by the middleware. The dispatch and request events are used to pass data across the peripheral bus.
+%\label{code:reqhandler}
+%\label{code:dispatch}
+	\begin{figure}
+    \footnotesize
+    {\fontsize{8}{6}\selectfont
+    \begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Middleware Dispatch Function Implementation}]{c}
+
+/**
+ * Dispatches microcode to the internal/external daughterboard for execution
+ *
+ * @param  byte*  microcode  This is an array of microcode instructions to be sent
+ * @param  byte   byte_length the size in bytes of the microcode instruction
+ * @return void
+ */
+void X10ABOT_MB::dispatch(byte* microcode, byte byte_length){
+  if (microcode[D_B_SELECTION]==0){ //If 0 use internal Daughterboard
+    db.localReceive(microcode, byte_length); //do operation locally
+  }
+  else{
+    Wire.begin();   //Initiate TWI interface
+    //Set TWI Transmission Speed
+    TWBR=0x13; // (DEC = 19) ~300000L
+   
+    Wire.beginTransmission(microcode[D_B_SELECTION]); // transmit to device #x
+    Wire.write(microcode, byte_length);       // sends all bytes
+    i2cStatusLog(Wire.endTransmission()); // stop transmitting and log output
+  }
+  dispatchDataLog(microcode, sizeof(microcode));
+}
+	\end{minted}
+    }
+    \caption{Example of the Middleware Dispatch Function Implementation used to determine the transport interface and protocol of the operations between the motherboard and daughterboard.} \label{code:dispatch}
+    \end{figure}
+
+\begin{figure}
+    \footnotesize
+    {\fontsize{8}{6}\selectfont
+    \begin{minted}[bgcolor=bg,baselinestretch=1,frame=lines,framesep=2mm,label={Middleware Request HAndler Function Implementation}]{c}
+
+
+/**
+ * Sends requests using microcode to the internal/external daughterboard for execution
+ * @param  byte byte_length the size in bytes of the microcode instruction
+ * @return void
+ */
+int X10ABOT_MB::requestHandler(byte* microcode, byte byte_length, byte seq_num){
+  for (int i = 0; i < 3; ++i){
+    if (_lookup[i][0]==seq_num){
+      return _lookup[i][1];
+    }
+  }
+  if (microcode[D_B_SELECTION]==0){
+    byte return_array[6];
+    db.localRequest(return_array);
+    byte output[5];
+    if (return_array[0]!=seq_num){      
+         //loop into cache
+      _lookup[_lookup_index][0]= return_array[0];
+      _lookup[_lookup_index][1]=return_array[1];
+      if (_lookup_index>2){
+        _lookup_index = 0;
+      }else{
+        _lookup_index++;
+      }
+    }else{      
+      for (int y=0; y<6;y++){
+        output[y]=return_array[y+1];
+      }
+      int x = atoi((char*)output);
+      return x;
+    }
+  }
+  else{
+    TWBR = 0x1B; // (DEC = 27) ~230000L
+    Wire.requestFrom((int)microcode[D_B_SELECTION], 6);
+    if(Wire.available()){    // slave may send less than requested
+      byte c = Wire.read();
+      if (c!=seq_num){
+         //loop into cache
+        _lookup[_lookup_index][0]= c;
+        _lookup[_lookup_index][1]=Wire.read();
+        if (_lookup_index>2){
+            _lookup_index = 0;
+          }else{
+            _lookup_index++;
+          }
+        }else{
+          byte result[5];
+          byte x=0;
+        while(Wire.available()){    // slave may send less than requested
+          result[x]=Wire.read();
+          x++;
+        }
+        int w = atoi((char*)result);
+        return w;
+      }
+    }
+    dispatchDataLog(microcode, sizeof(microcode));
+  }
+}
+\end{minted}
+    }
+    \caption{Example of the Middleware Request Handler Function Implementation used to determine the transport interface and protocol of the operations between the motherboard and daughterboard.} \label{code:reqhandler}
+    \end{figure}
 
 
 	% subsubsection middleware (end)
@@ -384,7 +535,7 @@ The code shows how microcode instructions are used to compose particular robotic
 
 \section{The Arduino Implementation} % (fold)
 \label{sec:the_arduino_implementation}
-\xten is a robotics architecture that is indifferent to any particular hardware system. We endeavoured to create an architecture that had very few hardware specific restrictions that would force the developer to chose one hardware platform over another. We also tried to create an architecture that was capable of running on systems as simple as 8-bit micro-controllers. What we found was that a majority of hobbyist roboticists and robots used in school competitions tended to use 8-bit microcontrollers. However, many of the major notable robotics architectures were built on top of a full featured 32 or 64-bit processing systems~\parencite{Elkady2012}. The architecture will however be able to scale up to a full scale 32 or 64-bit computer. This will allow for more complex programs to be written with more processor and hardware intensive operations. The most basic requirements for any implementation of the \xten architecture is a microprocessor which has the ability to perform digital and analog input and output. In this case, one controller will operate as both motherboard and daughterboard. In order to support external daughterboards, each microcontroller must have support for the \iic protocol in addition to the minimum requirements listed above.
+\xten is a robotics architecture that is indifferent to any particular hardware system. We endeavoured to create an architecture that had very few hardware specific restrictions that would force the developer to chose one hardware platform over another. We also tried to create an architecture that was capable of running on systems as simple as 8-bit micro-controllers. What we found was that a majority of hobbyist roboticists and robots used in school competitions tended to use 8-bit microcontrollers. However, many of the major notable robotics architectures were built on top of a full featured 32 or 64-bit processing systems. The architecture will however be able to scale up to a full scale 32 or 64-bit computer. This will allow for more complex programs to be written with more processor and hardware intensive operations. The most basic requirements for any implementation of the \xten architecture is a microprocessor which has the ability to perform digital and analog input and output. In this case, one controller will operate as both motherboard and daughterboard. In order to support external daughterboards, each microcontroller must have support for the \iic protocol in addition to the minimum requirements listed above.
 
 The Arduino embedded system framework is a very active project, and it is notable for keeping at the cutting edge of embedded development. The framework is platform independent and currently deployed on a variety of processors including Atmel's AVR 8-bit and 32-bit ARM processors. There are even a few other companies including Microchip who have adopted the Arduino framework for their 32-bit processors as well. 
 The \xten software was written with the Processing language supported by Arduino which is a derivative of C++. This allowed us to take advantage of many of C++'s high level language features including class hierarchy which is the basis of how development for the motherboard libraries are done. Arduino also comes with a cross platform IDE that allows development on all the major operating systems.

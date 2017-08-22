@@ -20,7 +20,7 @@ This chapter presents evidence showing how the \xten architecture achieves its o
  
 All tests and examples were done using the Arduino Prototyping system since this was the chosen platform used to prototype the \xten architecture. The fundamental concepts however were general enough to be implemented on any modern microcontroller that supports \iic and the operations listed in in Table \textbf{\ref{tab:microcode}}.
 
-Figure~\textbf{\ref{code:example}} is a typical code setup for a very simple mobile robot illustrated in Figure \textbf{\ref{fig:singleboard}}. All the sensors and actuators were placed on one board; for this particular implementation, we utilized the \textbf{internal} daughterboard which is hosted on the same board as the motherboard. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a pushbutton sensor.
+Figure~\textbf{\ref{code:example}} is a typical code setup for a very simple mobile robot illustrated in Figure \textbf{\ref{fig:singleboard}}. All the sensors and actuators were placed on one board; for this particular implementation, we utilized the \textbf{internal} daughterboard which is hosted on the same board as the motherboard. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a push-button sensor.
 
 
 %\begin{multicols}{2}
@@ -47,10 +47,10 @@ void setup(){}
 void loop(){
 //Continuously check the sensors for a reading
   if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
-    motor1.low_a_hi_b(); //Turn motor1 on by sending LO on pin a and HI on pin B
+    motor1.setDigital(LO, HI); //Turn motor1 on by sending LO on pin a and HI on pin B
     motor1.pwm_a(100); //operate motor1 at full power (100%) 
   }else{
-    motor1.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
+    motor1.setDigital(LO, LO);//Turn motor1 off by sending LO on pin a and pin b
   }
 }	 
 	\end{minted}
@@ -106,10 +106,10 @@ void setup(){}
 void loop(){
 //Continuously check the sensors for a reading
 if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
-    motor1.low_a_hi_b(); //Turn motor1 on by sending LO on pin a and HI on pin B
+    motor1.setDigital(LO, HI); //Turn motor1 on by sending LO on pin a and HI on pin B
     motor1.pwm_a(100); //operate motor1 at full power (100%) 
   }else{
-    motor1.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
+    motor1.setDigital(LO, LO);//Turn motor1 off by sending LO on pin a and pin b
   }
  \end{minted}
  \begin{minted}[bgcolor=hilite,baselinestretch=1]{c}
@@ -123,10 +123,10 @@ if(pushbutton.readDigitalB() || (force1.readAnalog()>100)){
 //on daughterboard #9 while light is on the sensor, activate motor2
 if (lightSensor.readAnalog()>700)
   {
-    motor2.hi_a_low_b(); //Turn motor2 on by sending HI on pin A and LO on pin b
+    motor2.setDigital(HI, LO); //Turn motor2 on by sending HI on pin A and LO on pin b
     motor2.pwm_a(50); //operate motor2 at half power (50%)
   }else{
-    motor2.low_a_low_b();//Turn motor1 off by sending LO on pin a and pin b
+    motor2.setDigital(LO, LO);//Turn motor1 off by sending LO on pin a and pin b
   }
 }	 
 	\end{minted}
@@ -141,7 +141,7 @@ All these features are an indication of a truly modular architecture. As previou
 \section{Extensibility and Abstraction} % (fold)
 \label{sec:extensibility_abstraction}
 We demonstrate the \xten architecture's ability to support new and varied types of sensors and actuators. This is accomplished by creating a subclass to either of the existing Sensor or Actuator classes. These parent classes support all the generic operations on all the available sensor and actuator ports. By creating a subclass, all the parent class properties and functions will be inherited. Devices with unique configurations can be supported by utilising the same abstracted daughterboard access available to the parent classes requiring no knowledge of the low-level details of the hardware.
-In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both celsius and fahrenheit units. This code was originally sourced from the Arduino Playground~\parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
+In the following example, we will define a simple, yet complete library that reads and interprets the data from a thermistor temperature sensor. The raw analog value will be read then we will apply some computations to acquire a useful output. The class will support functions that return temperature values in both Celsius and Fahrenheit units. This code was originally sourced from the Arduino Playground~\parencite{therm} as a simple example to acquire thermistor temperature readings. We made a few simple modification that allowed the same code to be applicable to the \xten architecture.
 \begin{figure}
 		\footnotesize
         {\fontsize{8}{6}\selectfont
@@ -335,5 +335,5 @@ We calculated the standard deviation and presented the data ranges for up to thr
 
 We also presented a comparative analysis of the Arduino with and without the \xten system. We observed that the all readings on all platforms fell below the 1 millisecond mark. For most school based or hobbyist projects, this falls within an acceptable range.
 
-The results emphasised that the advantages of \xten platform are more pronounced when it has to manipulate devices across multiple daughterboards. There are tradeoffs in performance which had to be sacrificed to accomplish this but it allowed the framework to achieve its goals of being modular, scalable and extensible.
+The results emphasised that the advantages of \xten platform are more pronounced when it has to manipulate devices across multiple daughterboards. There are trade-offs in performance which had to be sacrificed to accomplish this but these trade-offs allowed the framework to achieve its goals of being modular, scalable and extensible.
 % section economy (end)

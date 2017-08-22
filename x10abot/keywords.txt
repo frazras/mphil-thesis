@@ -1,0 +1,37 @@
+#######################################
+# Syntax Coloring Map For X10ABOT
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+X10ABOT_MB KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+on  KEYWORD2
+off KEYWORD2
+blink KEYWORD2
+dash  KEYWORD2
+dot KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+HI LITERAL1
+LO LITERAL1
+IN LITERAL1
+
+
+#######################################
+# COLOR CODE
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD2 Methods and functions
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# LITERAL1 Constants
+# LITERAL2 Built-in variables (unused by default)
+#######################################

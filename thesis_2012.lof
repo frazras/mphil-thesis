@@ -4,26 +4,20 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Example of a single controller with a force sensor and a DC motor\relax }}{5}{figure.caption.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Now we add: A push-button sensor to the motherboard (or daughterboard \#0). We also add an extra daughterboard with a light sensor, and a DC Motor\relax }}{6}{figure.caption.14}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.1}{\ignorespaces The components of the \texttt {X10ABOT} Architecture\relax }}{22}{figure.caption.28}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.2}{\ignorespaces The serial communication peripheral I$^2$C bus\relax }}{23}{figure.caption.32}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.3}{\ignorespaces The daughterboard slave module\relax }}{27}{figure.caption.35}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.4}{\ignorespaces The sensor and the actuator ports.\relax }}{28}{figure.caption.37}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.5}{\ignorespaces The \texttt {X10ABOT} software architecture\relax }}{31}{figure.caption.40}
-\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces The components of a simple single-board \texttt {X10ABOT} setup\relax }}{42}{figure.caption.54}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The components of the \texttt {X10ABOT} Architecture\relax }}{23}{figure.caption.32}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces The components of a Modular single-board \texttt {X10ABOT} Example\relax }}{45}{figure.caption.57}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The serial communication peripheral I$^2$C bus\relax }}{24}{figure.caption.36}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces The Sample Standard Deviation equation\relax }}{51}{figure.63}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The daughterboard slave module\relax }}{27}{figure.caption.39}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.4}{\ignorespaces The sensor and the actuator ports\relax }}{28}{figure.caption.41}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.5}{\ignorespaces The \texttt {X10ABOT} software architecture\relax }}{31}{figure.caption.44}
