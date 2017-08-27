@@ -236,12 +236,12 @@ We carried out instruction execution latency tests to evaluate the performance o
 \item The \xten framework with no external daughterboards (internal daughterboard used instead).
 \end{itemize}
 
-The tests were carried out by invoking and storing the value of Arduino\'s \textbf{micros()} function which returns the number of microseconds since the program started. The times before and after function executions were recorded and their difference taken. The timing utility on the Arduino has a maximum resolution of 4 micro second intervals therefore the readings were not precise. We implemented the tests in a continuous loop and recorded a sample of 20 consecutive duration time values for each tested function. We did further computations to find the mean and the standard deviation (Figure~\ref{eq:sd}) of the sample set of these values.
-
-$$
-s = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
-$$
-\captionof{figure}{The Sample Standard Deviation equation}\label{eq:sd}
+The tests were carried out by invoking and storing the value of Arduino\'s \textbf{micros()} function which returns the number of microseconds since the program started. The times before and after function executions were recorded and their difference taken. The timing utility on the Arduino has a maximum resolution of 4 micro second intervals therefore the readings were not precise. We implemented the tests in a continuous loop and recorded a sample of 20 consecutive duration time values for each tested function. We did further computations to find the mean and the standard deviation of the sample set of these values.
+%(Figure~\ref{eq:sd})
+%$$
+%s = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+%$$
+%\captionof{figure}{The Sample Standard Deviation equation}\label{eq:sd}
 
 \newpage
 \textbf{The tables below display the result of our timing experiment: }

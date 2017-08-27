@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2015.5.24)  21 AUG 2017 23:00
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2015.5.24)  27 AUG 2017 12:01
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1532,7 +1532,7 @@ LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <12> not available
  [6
 
 
-] [7]
+]
 ------------------------------------------------------------------------------
  List of Tables
 ------------------------------------------------------------------------------
@@ -1546,7 +1546,7 @@ oseconds($\OML/cmm/m/it/12 ^^V$\EU1/lmr/m/n/12 s)
 \tf@lot=\write10
 \openout10 = `thesis_2012.lot'.
 
- [8
+ [7
 
 
 ] (./chapters/chapter1.tex
@@ -1612,86 +1612,157 @@ Chapter 2.
 
 ] [8] [9] [10] [11]
 Missing character: There is no ￼ in font [lmroman12-regular]:mapping=tex-text!
- [12] [13] [14] [15] [16]) (./chapters/chapter3.tex
-[17]
+ [12] [13] [14] [15] [16] [17]) (./chapters/chapter3.tex
+[18]
 Chapter 3.
 ------------------------------------------------------------------------------
  3 The \texttt {X10ABOT} Architecture, Design and Implementation
 ------------------------------------------------------------------------------
-[18
+[19
 
-] [19] [20] [21]
+] [20]
 File: Figures/system_block_diagram.pdf Graphic file (type QTm)
  <use  "Figures/system_block_diagram.pdf" >
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[22] [23]
+[21] [22]
 File: Figures/pbus.pdf Graphic file (type QTm)
- <use  "Figures/pbus.pdf" > [24]
+ <use  "Figures/pbus.pdf" > [23] [24]
 Missing character: There is no ￼ in font [lmroman12-regular]:mapping=tex-text!
- [25] [26]
+ [25]
 File: Figures/db.pdf Graphic file (type QTm)
  <use  "Figures/db.pdf" >
-File: Figures/Ports.pdf Graphic file (type QTm)
-
-<use  "Figures/Ports.pdf" >
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[27] [28] [29]
+[26]
+File: Figures/Ports.pdf Graphic file (type QTm)
+ <use  "Figures/Ports.pdf" > [27] [28]
 File: Figures/system.pdf Graphic file (type QTm)
  <use  "Figures/system.pdf" >
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[30] [31]
-File: Figures/sequence.pdf Graphic file (type QTm)
- <use  "Figures/sequence.pdf" >
+[29] [30]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-)
-Runaway argument?
-{The complete set of hardware operations supported by the microcode i\ETC.
-! File ended while scanning use of \caption@xdblarg.
-<inserted text> 
-                \par 
-l.116 \input{./chapters/chapter3}
-                                  % \chapter{Design and Implementation}
-? q
-OK, entering \batchmode...
- (./chapters/chapter4.tex
+[31]
+File: Figures/sequence.pdf Graphic file (type QTm)
+ <use  "Figures/sequence.pdf" > [32] [33]
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+ (./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/c7402893745c227372d8c5ef4c8d0c6f160ca9f8.pygtex)
+[34]
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+ (./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/e5b3939687af70e74f0e8308113f9926e1b06de9.pygtex)
+[35]
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+ (./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/61eb915146886a4c7aebad0f15276a51a8592562.pygtex)
+[36]
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+ (./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/249bafbade5172543aa22aaf2e1f82eca5f56b0b.pygtex)
+[37] [38]
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+ (./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/b2fd4b408ade8dad4b587397eebaa4e95c36756c.pygtex)
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+
+(./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/fa1481e286afaf1f278a799d6d75b7e180ba98b4.pygtex)
+\openout4 = `thesis_2012.pyg'.
+
+\openout6 = `thesis_2012.mintedcmd'.
+
+runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
+_2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thes
+is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
+012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher.he
+xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
+er\\endinput\n \"); f.close();")...executed.
+
+
+(./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/363a6448c77eb32a6e545f272cb329ce29aee365.pygtex)
+[39] [40]) (./chapters/chapter4.tex [41]
 Chapter 4.
 ------------------------------------------------------------------------------
  4 Results
 ------------------------------------------------------------------------------
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11   \begin
-             {center}
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 File: Figures/simple-example.pdf Graphic file (type QTm)
- <use  "Figures/simple-example.pdf" >
+<use  "Figures/simple-example.pdf" >
+Overfull \hbox (11.80469pt too wide) in paragraph at lines 17--18
+[]\EU1/lmr/m/n/12 This chapter presents evidence showing how the \EU1/lmtt/m/n/
+12 X10ABOT \EU1/lmr/m/n/12 architecture achieves
+ []
 
-! LaTeX Error: Not in outer par mode.
+[42
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.28 ^^I^^I\footnotesize
-                        
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+]
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1708,36 +1779,9 @@ er\\endinput\n \"); f.close();")...executed.
 LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 17.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 71--71
- |[]\EU1/lmr/m/n/12 Modularity|
- []
-
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.76 \begin{figure}[h!]
-                       
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+[43] [44]
 File: Figures/modular-example.pdf Graphic file (type QTm)
  <use  "Figures/modular-example.pdf" >
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.84 ^^I^^I\footnotesize
-                        
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1762,7 +1806,8 @@ is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
 xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
 er\\endinput\n \"); f.close();")...executed.
 
- (./thesis_2012.mintedmd5)
+
+(./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/656dd7ce8c534f971bdbb894a6ae3eda3a889c04.pygtex)
 \openout4 = `thesis_2012.pyg'.
 
@@ -1775,12 +1820,10 @@ is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
 xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
 er\\endinput\n \"); f.close();")...executed.
 
- (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/cae0ded5ca1c696a179870d269f495a1e5f18539.pygtex)
-Underfull \hbox (badness 10000) in paragraph at lines 141--141
- |[]\EU1/lmr/m/n/12 Extensibility and Abstraction|
- []
 
+(./thesis_2012.mintedmd5)
+(./_minted-thesis_2012/cae0ded5ca1c696a179870d269f495a1e5f18539.pygtex)
+[45] [46]
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1805,7 +1848,8 @@ is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
 xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
 er\\endinput\n \"); f.close();")...executed.
 
- (./thesis_2012.mintedmd5)
+
+(./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/146d05e5e25958cfd54b66d04d8561861009aed9.pygtex)
 \openout4 = `thesis_2012.pyg'.
 
@@ -1818,8 +1862,10 @@ is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
 xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
 er\\endinput\n \"); f.close();")...executed.
 
- (./thesis_2012.mintedmd5)
+
+(./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/0507cc4c9c9ef4d14ac3c2129320bc1269b0f08b.pygtex)
+[47]
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1833,84 +1879,34 @@ er\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/1a5182737b232b7db3e1759092900f9602e39117.pygtex)
-Underfull \hbox (badness 10000) in paragraph at lines 226--226
- |[]\EU1/lmr/m/n/12 Scalability|
- []
-
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.249 \begin{table}[h!]
-                       
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.275 \begin{table}[!ht]
-                        
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 5519) in paragraph at lines 276--276
-[]\EU1/lmr/m/n/10.95 Table 4.2. |Table showing microcode instruction latency in
+[48] [49] [50] [51]
+Underfull \hbox (badness 7869) in paragraph at lines 276--276
+[]\EU1/lmr/m/n/10.95 Table 4.2: |Table showing microcode instruction latency in
 
  []
 
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.301 \begin{table}[!ht]
-                        
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 329--329
- |[]\EU1/lmr/m/n/12 Observations|
- []
-
-) (./chapters/chapter5.tex
+[52]) (./chapters/chapter5.tex [53]
 Chapter 5.
 ------------------------------------------------------------------------------
  5 Conclusion and Discussion
 ------------------------------------------------------------------------------
+[54
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--4
- |[]\EU1/lmr/m/n/12 Limitations|
+] [55] [56] [57]) [58] [59
+
+]
+Overfull \hbox (2.38942pt too wide) in paragraph at lines 127--127
+[][]\EU1/lmr/m/n/12 Himpe, Vince. 2015. “  I2C (Inter-Integrated Circuit) Bus T
+echnical Overview
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--15
- |[]\EU1/lmr/m/n/12 Achievements|
+Overfull \hbox (4.65707pt too wide) in paragraph at lines 127--127
+\EU1/lmr/m/n/12 Custódio. 2000. “  ISocRob — Intelligent Society of Robots.” In
+ \EU1/lmr/m/it/12 RoboCup-
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--31
- |[]\EU1/lmr/m/n/12 Future Work|
- []
-
-)
-Underfull \hbox (badness 2310) in paragraph at lines 127--127
-[]\EU1/lmr/m/n/12 Himpe, Vince. 2015. “  I2C (Inter-Integrated Circuit) Bus Tec
-hnical
- []
-
- (./chapters/chapter6.tex
+[60] (./chapters/chapter6.tex [61]
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -1921,7 +1917,10 @@ er.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\make
 atother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/54b28787e655f0c123542c92e5c2ce2f86817715.pygtex)
+(./_minted-thesis_2012/54b28787e655f0c123542c92e5c2ce2f86817715.pygtex [62
+
+]
+[63] [64])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -1932,7 +1931,8 @@ sher.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\ma
 keatother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/14961ce1898cdab20a8c99a5b7093d990c5bc888.pygtex)
+(./_minted-thesis_2012/14961ce1898cdab20a8c99a5b7093d990c5bc888.pygtex [65]
+[66] [67] [68])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -1943,7 +1943,8 @@ er.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\make
 atother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/e2d48ee0589a6885849d8a061c8ac62845ca5f1b.pygtex)
+(./_minted-thesis_2012/e2d48ee0589a6885849d8a061c8ac62845ca5f1b.pygtex [69]
+[70])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -1954,7 +1955,8 @@ sher.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\ma
 keatother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/bca4c29bace263433bb69a2ea876ea8b87ffa141.pygtex)
+(./_minted-thesis_2012/bca4c29bace263433bb69a2ea876ea8b87ffa141.pygtex [71]
+[72] [73] [74] [75])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -1965,7 +1967,8 @@ s_2012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hasher
 other\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/19769eac4966ae5e723c0fbbc6446f070eaa902a.pygtex)
+(./_minted-thesis_2012/19769eac4966ae5e723c0fbbc6446f070eaa902a.pygtex [76]
+[77])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -1982,7 +1985,7 @@ Overfull \hbox (42.36194pt too wide) in paragraph at lines 23--23
 ])[]+[]pin_select,incr_instr_seq()};|  
  []
 
-
+[78]
 Overfull \hbox (73.86194pt too wide) in paragraph at lines 44--44
 \EU1/lmtt/m/n/10 {FN_PWM,db_address,((port_number[]-[][]1[])[]<<[][]1[])[]+[]pw
 m_select,incr_instr_seq(),duty_cycle};|  
@@ -1999,18 +2002,25 @@ er.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\make
 atother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/ab644a8be87eebe8a7fb3752f094bb6abf54b5c3.pygtex)
+(./_minted-thesis_2012/ab644a8be87eebe8a7fb3752f094bb6abf54b5c3.pygtex [79]
+[80])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
 _2012.mintedcmd\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"x10a
-bot/x10sion/Thermistor.h\", \"rb\"); hasher.update(f.read()); f.close(); f = op
-en(\"thesis_2012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123
-) + hasher.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + 
-\"\\makeatother\\endinput\n \"); f.close();")...executed.
+bot/x10sions/Thermistor.h\", \"rb\"); hasher.update(f.read()); f.close(); f = o
+pen(\"thesis_2012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(12
+3) + hasher.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro +
+ \"\\makeatother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/ab644a8be87eebe8a7fb3752f094bb6abf54b5c3.pygtex)
+(./_minted-thesis_2012/2c06e52936e5907e440b8e858b234b1df568e64e.pygtex [81]
+Overfull \hbox (16.11194pt too wide) in paragraph at lines 19--19
+[]\EU1/lmtt/m/n/10 1[][]/[]([]0.001129148[][]+[]([]0.000234125[][]+[]([]0.00000
+00876741[][]*[]Temp[]*[]Temp))[]*[]Temp);|  
+ []
+
+)
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -2021,7 +2031,8 @@ pen(\"thesis_2012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(12
  \"\\makeatother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/4e9801d5db516ed91ecd8cb65c59c7502624b0ef.pygtex)
+(./_minted-thesis_2012/4e9801d5db516ed91ecd8cb65c59c7502624b0ef.pygtex [82]
+[83])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -2032,7 +2043,7 @@ hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeato
 ther\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/4dd481308320e55dd3662b07e3e54396fdaaee66.pygtex)
+(./_minted-thesis_2012/4dd481308320e55dd3662b07e3e54396fdaaee66.pygtex [84])
 \openout6 = `thesis_2012.mintedcmd'.
 
 runsystem(python -c "import hashlib; hasher = hashlib.sha1(); f = open(\"thesis
@@ -2042,108 +2053,38 @@ sis_2012.mintedmd5\", \"w\"); macro = \"\\edef\\minted@hash\" + chr(123) + hash
 er.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\make
 atother\\endinput\n \"); f.close();")...executed.
 
- (./thesis_2012.mintedmd5)
+
+(./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/ac71686e8e0b05182e55e4ca4ff55fb33f4d5184.pygtex))
-runsystem(rm "_minted-thesis_2012/c7402893745c227372d8c5ef4c8d0c6f160ca9f8.pygt
-ex")...executed.
-
-runsystem(rm "_minted-thesis_2012/e5b3939687af70e74f0e8308113f9926e1b06de9.pygt
-ex")...executed.
-
-runsystem(rm "_minted-thesis_2012/61eb915146886a4c7aebad0f15276a51a8592562.pygt
-ex")...executed.
-
-runsystem(rm "_minted-thesis_2012/249bafbade5172543aa22aaf2e1f82eca5f56b0b.pygt
-ex")...executed.
-
-runsystem(rm "_minted-thesis_2012/b2fd4b408ade8dad4b587397eebaa4e95c36756c.pygt
-ex")...executed.
-
-runsystem(rm "_minted-thesis_2012/fa1481e286afaf1f278a799d6d75b7e180ba98b4.pygt
-ex")...executed.
-
-runsystem(rm "_minted-thesis_2012/363a6448c77eb32a6e545f272cb329ce29aee365.pygt
-ex")...executed.
-
 runsystem(rm "thesis_2012.mintedcmd")...executed.
 
 runsystem(rm "thesis_2012.mintedmd5")...executed.
 
 runsystem(rm "thesis_2012.pyg")...executed.
 
-
-! LaTeX Error: \begin{table} on input line 194 ended by \end{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.131 \end{document}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 131.
+
+[85]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 131.
  (./thesis_2012.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 131.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 131.
-
-Package biblatex Warning: Please rerun LaTeX.
-(biblatex)                Page breaks have changed.
-
 Package logreq Info: Writing requests to 'thesis_2012.run.xml'.
 \openout1 = `thesis_2012.run.xml'.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 131.
-! You can't use `\end' in internal vertical mode.
-\enddocument ...es \z@ \Call@AtVeryVeryEnd \@@end 
-                                                  
-l.131 \end{document}
-                    
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
+ )
+(\end occurred inside a group at level 1)
 
-
-! LaTeX Error: \begin{table} on input line 194 ended by \end{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.131 \end{document}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.131 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-)
-! Emergency stop.
-<*> thesis_2012
-               
-*** (job aborted, no legal \end found)
-
- 
+### simple group (level 1) entered at line 30 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
- 34990 strings out of 493706
- 643621 string characters out of 6145769
- 1640447 words of memory out of 5000000
- 37764 multiletter control sequences out of 15000+600000
- 12261 words of font info for 73 fonts, out of 8000000 for 9000
+ 35024 strings out of 493706
+ 645330 string characters out of 6145769
+ 1372500 words of memory out of 5000000
+ 37771 multiletter control sequences out of 15000+600000
+ 12253 words of font info for 72 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 49i,12n,59p,10396b,5084s stack positions out of 5000i,500n,10000p,200000b,80000s
-Output written on thesis_2012.pdf (40 pages).
+ 49i,12n,59p,10396b,4952s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on thesis_2012.pdf (93 pages).
