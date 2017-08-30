@@ -12,7 +12,7 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.1}{\ignorespaces The components of the \texttt {X10ABOT} Architecture\relax }}{22}{figure.caption.32}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The components of the \texttt {X10ABOT }Architecture\relax }}{22}{figure.caption.32}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {3.2}{\ignorespaces The serial communication peripheral I$^2$C bus\relax }}{23}{figure.caption.36}
 \defcounter {refsection}{0}\relax 
@@ -20,11 +20,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {3.4}{\ignorespaces The sensor and the actuator ports\relax }}{27}{figure.caption.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.5}{\ignorespaces The \texttt {X10ABOT} software architecture\relax }}{30}{figure.caption.44}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces The \texttt {X10ABOT }software architecture\relax }}{30}{figure.caption.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.6}{\ignorespaces The components of the \texttt {X10ABOT} Architecture\relax }}{33}{figure.caption.48}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces The components of the \texttt {X10ABOT }Architecture\relax }}{33}{figure.caption.48}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Example implementation of the \texttt {X10ABOT} microcode instructions used in the device libraries\relax }}{34}{figure.caption.49}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Example implementation of the \texttt {X10ABOT }microcode instructions used in the device libraries\relax }}{34}{figure.caption.49}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Example of the Actuator class methods that uses microcode to represent general operations on an actuator\relax }}{36}{figure.caption.51}
 \defcounter {refsection}{0}\relax 
@@ -32,20 +32,20 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {3.10}{\ignorespaces Example of the Middleware Request Handler Function Implementation used to determine the transport interface and protocol of the operations between the motherboard and daughterboard.\relax }}{38}{figure.caption.54}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Thermistor library showing how a sensor can be supported through the extensibility features of the \texttt {X10ABOT} architecture\relax }}{39}{figure.caption.56}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Thermistor library showing how a sensor can be supported through the extensibility features of the \texttt {X10ABOT }architecture\relax }}{39}{figure.caption.56}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces The components of a simple single-board \texttt {X10ABOT} setup\relax }}{42}{figure.caption.59}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The components of a simple single-board \texttt {X10ABOT }setup\relax }}{42}{figure.caption.59}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Example of the \texttt {X10ABOT} architecture on a simple - single board robot\relax }}{43}{figure.caption.60}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Example of the \texttt {X10ABOT }architecture on a simple - single board robot\relax }}{43}{figure.caption.60}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces The components of a Modular single-board \texttt {X10ABOT} Example\relax }}{45}{figure.caption.62}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces The components of a Modular single-board \texttt {X10ABOT }Example\relax }}{45}{figure.caption.62}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Example of code modularity (the code components were separated to emphasise modularity). Highlighted region indicates the code added for the new module\relax }}{46}{figure.caption.63}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Example: A complete library for a thermistor temperature sensor. The highlighted region indicates where the \texttt {X10ABOT} microcode was added\relax }}{48}{figure.caption.65}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Example: A complete library for a thermistor temperature sensor. The highlighted region indicates where the \texttt {X10ABOT }microcode was added\relax }}{47}{figure.caption.65}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Example application of the thermistor temperature sensor library\relax }}{49}{figure.caption.66}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Example application of the thermistor temperature sensor library\relax }}{48}{figure.caption.66}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }

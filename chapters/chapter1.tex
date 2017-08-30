@@ -40,9 +40,9 @@ Outlined in this thesis are the details of how we progressed from our conceptual
 
 The outcome of the use of these tools and strategies gave us a system that was able to easily control multiple sensors and actuators in a scalable and modular way while allowing for extensibility.
 
-Figure~\textbf{\ref{code:simpl}} describes a typical code setup for a very simple mobile robot using the \xten framework. All the sensors and actuators are placed on one board (the daughterboard) for this simple implementation. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a push-button sensor. The instructions written in Figure~\textbf{\ref{code:simpl}} drives the motor at full speed whenever either the touch sensor records an input or if there is a force on the force sensor above a certain threshold, otherwise the motor will remain in the off state.
+Figure~\ref{code:simpl} describes a typical code setup for a very simple mobile robot using the \xten framework. All the sensors and actuators are placed on one board (the daughterboard) for this simple implementation. This robot has one actuator (a DC motor connected to an external H-bridge), a force sensor and a push-button sensor. The instructions written in Figure~\ref{code:simpl} drives the motor at full speed whenever either the touch sensor records an input or if there is a force on the force sensor above a certain threshold, otherwise the motor will remain in the off state.
 
- We then further extend the same simple example from Figure~\textbf{\ref{code:simpl}} to show how the \xten framework is able to scale modularly.
+ We then further extend the same simple example from Figure~\ref{code:simpl} to show how the \xten framework is able to scale modularly.
  In Figure~\ref{code:simplplus} an extra DC motor and a light sensor is added as a single module. Instructions are then added to activate the new DC motor if there is a light intensity above a certain threshold on the sensor. The code example shows that even with the addition of two independent devices, \emph{motor1} and \emph{lightSensor} to the system, it did not affect the existing code but fit seamlessly in the development process.
  
 

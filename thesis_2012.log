@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2015.5.24)  27 AUG 2017 12:01
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2015.5.24)  30 AUG 2017 09:34
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1754,13 +1754,7 @@ Chapter 4.
  4 Results
 ------------------------------------------------------------------------------
 File: Figures/simple-example.pdf Graphic file (type QTm)
-<use  "Figures/simple-example.pdf" >
-Overfull \hbox (11.80469pt too wide) in paragraph at lines 17--18
-[]\EU1/lmr/m/n/12 This chapter presents evidence showing how the \EU1/lmtt/m/n/
-12 X10ABOT \EU1/lmr/m/n/12 architecture achieves
- []
-
-[42
+<use  "Figures/simple-example.pdf" > [42
 
 ]
 \openout4 = `thesis_2012.pyg'.
@@ -1775,13 +1769,13 @@ xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
 er\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/302e6e490b1a6e293922b7a49bd910d45d737e8e.pygtex
-LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 17.
-)
-[43] [44]
+(./_minted-thesis_2012/302e6e490b1a6e293922b7a49bd910d45d737e8e.pygtex)
+[43]
 File: Figures/modular-example.pdf Graphic file (type QTm)
  <use  "Figures/modular-example.pdf" >
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1793,7 +1787,7 @@ is_2012.pyg\", \"rb\"); hasher.update(f.read()); f.close(); f = open(\"thesis_2
 xdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\makeatoth
 er\\endinput\n \"); f.close();")...executed.
 
- (./thesis_2012.mintedmd5)
+(./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/ebbb440a227aa9f16d1bd71c2ca47e1ca6df192f.pygtex)
 \openout4 = `thesis_2012.pyg'.
 
@@ -1823,7 +1817,7 @@ er\\endinput\n \"); f.close();")...executed.
 
 (./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/cae0ded5ca1c696a179870d269f495a1e5f18539.pygtex)
-[45] [46]
+[44] [45]
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1865,7 +1859,7 @@ er\\endinput\n \"); f.close();")...executed.
 
 (./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/0507cc4c9c9ef4d14ac3c2129320bc1269b0f08b.pygtex)
-[47]
+[46] [47]
 \openout4 = `thesis_2012.pyg'.
 
 \openout6 = `thesis_2012.mintedcmd'.
@@ -1880,7 +1874,7 @@ er\\endinput\n \"); f.close();")...executed.
  (./thesis_2012.mintedmd5)
 (./_minted-thesis_2012/1a5182737b232b7db3e1759092900f9602e39117.pygtex)
 [48] [49] [50] [51]
-Underfull \hbox (badness 7869) in paragraph at lines 276--276
+Underfull \hbox (badness 7869) in paragraph at lines 278--278
 []\EU1/lmr/m/n/10.95 Table 4.2: |Table showing microcode instruction latency in
 
  []
@@ -1917,7 +1911,10 @@ er.hexdigest() + chr(125) + \"\"; f.write(\"\\makeatletter\" + macro + \"\\make
 atother\\endinput\n \"); f.close();")...executed.
 
  (./thesis_2012.mintedmd5)
-(./_minted-thesis_2012/54b28787e655f0c123542c92e5c2ce2f86817715.pygtex [62
+(./_minted-thesis_2012/54b28787e655f0c123542c92e5c2ce2f86817715.pygtex
+LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 19.
+ [62
 
 ]
 [63] [64])
